@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebClinic;
+namespace WebClinic.Models;
 
 public partial class User
 {

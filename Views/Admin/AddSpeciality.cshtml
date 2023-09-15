@@ -1,0 +1,14 @@
+﻿@model Speciality
+
+<div>
+    <form asp-controller="Admin" asp-action="AddSpecialityAction">
+        <p>
+            <label asp-for="NameSpeciality">Название специальности</label>
+            <input type="text" asp-for="NameSpeciality"/>
+        </p>
+        <p>
+            <input type="submit" value="Создать"/>
+        </p>
+    </form>
+    @await Html.PartialAsync("GetSpecialities")
+</div>

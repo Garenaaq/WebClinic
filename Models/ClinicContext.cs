@@ -184,6 +184,8 @@ public partial class ClinicContext : DbContext
 
             entity.ToTable("users");
 
+            entity.HasIndex(e => e.Login, "login_unique").IsUnique();
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Login)
                 .HasMaxLength(64)
@@ -191,6 +193,7 @@ public partial class ClinicContext : DbContext
             entity.Property(e => e.Pass)
                 .HasMaxLength(64)
                 .HasColumnName("pass");
+            entity.Property(e => e.Role).HasColumnName("role");
         });
 
         OnModelCreatingPartial(modelBuilder);
