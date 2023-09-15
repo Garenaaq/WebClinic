@@ -1,0 +1,60 @@
+﻿@model WebClinic.Models.Patient
+
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+@* <form method="post" asp-controller="Authorization" asp-action="RegistrationPatient">
+    <div class="border p-3">
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Фамилия
+            </div>
+            <div class="col-8">
+                <input class="form-control" asp-for="FullName" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Баланс
+            </div>
+            <div class="col-8">
+                <input class="form-control" asp-for="Balance" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Дата регистрации
+            </div>
+            <div class="col-8">
+                <input class="form-control" type="date" asp-for="DateRegistr" value=@ViewData["dateRegistr"] />
+                <span asp-validation-for="DateRegistr" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Статус
+            </div>
+            <div class="col-8">
+                <select asp-items="@ViewBag.listWithStatus" class="form-control" asp-for="Status">
+                    <option disabled selected>Статус</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-8 offset-4 row">
+                <div class="col">
+                    <input type="submit" class="btn btn-success w-75" value="Обновить" />
+                </div>
+                <div class="col">
+                    <a asp-controller="Players" asp-action="TablePlayers" class="btn btn-info w-75">Назад</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form> *@
+
+

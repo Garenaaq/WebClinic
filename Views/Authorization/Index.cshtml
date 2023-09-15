@@ -1,0 +1,28 @@
+﻿@model WebClinic.Models.User
+
+@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<div class="container align-middle">
+    <div class="w-50 col-md-8 mx-auto" style="text-align: center">
+        <form asp-controller="Authorization" asp-action="Index" method="post">
+            <div class="form-group m-3">
+                <input class="form-control item" type="text" name="login" id="login" placeholder="Логин" asp-for="Login">
+                <div>
+                    <span class="text-danger" asp-validation-for="Login"></span>
+                </div>
+            </div>
+            <div class="form-group m-3">
+                <input class="form-control item" type="password" name="pass" id="password" placeholder="Пароль" asp-for="Pass">
+                <div>
+                    <span class="text-danger" asp-validation-for="Pass"></span>
+                </div>
+            </div>
+            <div class="form-group m-3">
+                <button class="btn btn-success btn-block create-account" type="submit">Вход в аккаунт</button>
+                <button class="btn btn-outline-primary btn-block create-account" asp-controller="" asp-action="" >Регистрация</button>
+            </div>
+        </form>
+    </div>
+</div>
