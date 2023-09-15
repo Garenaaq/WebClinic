@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebClinic.Models;
 
-namespace WebClinic.Models;
+namespace WebClinic;
 
 public partial class User
 {
@@ -10,6 +11,8 @@ public partial class User
     public string? Login { get; set; }
 
     public string? Pass { get; set; }
+
+    public string Role { get; set; } = null!;
 
     public virtual ICollection<Employe> Employes { get; set; } = new List<Employe>();
 

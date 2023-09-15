@@ -12,7 +12,7 @@ namespace WebClinic.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Getservice(int id)
         {
             var service = _context.MedicalServices.FirstOrDefault(x => x.Id == id);
             return View(service);

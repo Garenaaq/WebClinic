@@ -1,0 +1,10 @@
+﻿@model List<MedicalService>
+
+<div>
+    @{
+        foreach (var service in Model)
+        {
+            <a href="/services/getservice/@service.Id">@service.NameService</a>
+        }
+    }
+</div>
