@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebClinic;
+namespace WebClinic.Models;
 
 public partial class User
 {
@@ -11,6 +11,7 @@ public partial class User
     public int Id { get; set; }
     [Required(ErrorMessage = "Вы не ввели логин")]
     public string? Login { get; set; }
+    [Required(ErrorMessage = "Вы не ввели пароль")]
     public string? Pass { get; set; }
 
     public string Role { get; set; } = null!;

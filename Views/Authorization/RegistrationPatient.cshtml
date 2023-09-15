@@ -4,57 +4,80 @@
     ViewData["Title"] = "Регистрация";
 }
 
-@* <form method="post" asp-controller="Authorization" asp-action="RegistrationPatient">
+<form method="post" id="myForm" asp-controller="Authorization" asp-action="RegistrationPatient">
     <div class="border p-3">
         <div class="form-group row m-3">
             <div class="col-4">
                 Фамилия
             </div>
             <div class="col-8">
-                <input class="form-control" asp-for="FullName" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+                <input class="form-control" asp-for="Surname"/>
+                <span class="text-danger" asp-validation-for="Surname"></span>
             </div>
         </div>
         <div class="form-group row m-3">
             <div class="col-4">
-                Баланс
+                Имя
             </div>
             <div class="col-8">
-                <input class="form-control" asp-for="Balance" />
-                <span asp-validation-for="Balance" class="text-danger"></span>
+                <input class="form-control" asp-for="Name" />
+                <span class="text-danger" asp-validation-for="Name"></span>
             </div>
         </div>
         <div class="form-group row m-3">
             <div class="col-4">
-                Дата регистрации
+                Отчество
             </div>
             <div class="col-8">
-                <input class="form-control" type="date" asp-for="DateRegistr" value=@ViewData["dateRegistr"] />
-                <span asp-validation-for="DateRegistr" class="text-danger"></span>
+                <input class="form-control" asp-for="Patronymic" />
+                <span class="text-danger" asp-validation-for="Patronymic"></span>
             </div>
         </div>
         <div class="form-group row m-3">
             <div class="col-4">
-                Статус
+                Возраст
             </div>
             <div class="col-8">
-                <select asp-items="@ViewBag.listWithStatus" class="form-control" asp-for="Status">
-                    <option disabled selected>Статус</option>
+                <input class="form-control" type="number" asp-for="Age" />
+                <span class="text-danger" asp-validation-for="Age"></span>
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Пол
+            </div>
+            <div class="col-8">
+                <select asp-items="@ViewBag.listWithGender" class="form-control" asp-for="Gender">
+                    <option disabled selected>Пол</option>
                 </select>
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Логин
+            </div>
+            <div class="col-8">
+                <input class="form-control" name="Login" value="@ViewBag.Login" required />
+            </div>
+        </div>
+        <div class="form-group row m-3">
+            <div class="col-4">
+                Пароль
+            </div>
+            <div class="col-8">
+                <input class="form-control" name="Pass" value="@ViewBag.Login" required />
             </div>
         </div>
         <div class="form-group row m-3">
             <div class="col-8 offset-4 row">
                 <div class="col">
-                    <input type="submit" class="btn btn-success w-75" value="Обновить" />
+                    <input type="submit" class="btn btn-success w-75" value="Добавить" />
                 </div>
                 <div class="col">
-                    <a asp-controller="Players" asp-action="TablePlayers" class="btn btn-info w-75">Назад</a>
+                    <a class ="btn btn-primary w-75" asp-action="Index">Назад</a>
                 </div>
             </div>
         </div>
     </div>
-</form> *@
-
-
+</form>
