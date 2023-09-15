@@ -31,6 +31,10 @@ public partial class ClinicContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=ep-empty-glade-97153572.eu-central-1.aws.neon.tech;Port=5432;Database=clinic;Username=Monoclocker;Password=7yiPVgW9xDIe");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DiseaseHistory>(entity =>
@@ -94,8 +98,14 @@ public partial class ClinicContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.FkSpeciality).HasColumnName("fk_speciality");
             entity.Property(e => e.NameService).HasColumnName("name_service");
             entity.Property(e => e.Price).HasColumnName("price");
+
+            entity.HasOne(d => d.FkSpecialityNavigation).WithMany(p => p.MedicalServices)
+                .HasForeignKey(d => d.FkSpeciality)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("medical_services_fk_speciality_fkey");
         });
 
         modelBuilder.Entity<Patient>(entity =>

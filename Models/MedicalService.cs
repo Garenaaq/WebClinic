@@ -15,5 +15,9 @@ public partial class MedicalService
 
     public int? DeleteFlag { get; set; }
 
+    public int? FkSpeciality { get; set; }
+
+    public virtual Speciality? FkSpecialityNavigation { get; set; }
+
     public virtual ICollection<Record> Records { get; set; } = new List<Record>();
 }
