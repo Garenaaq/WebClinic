@@ -26,7 +26,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <a class="link-primary" style="float: right" asp-controller="Authorization" asp-action="Index">Вход</a>
+                    @if (ViewBag.idUser == null)
+                    {
+                        <a class="link-primary" style="float: right" asp-controller="Authorization" asp-action="Index">Вход</a>
+                    }
+                    else
+                    {
+                        <a class="link-primary" style="float: right; margin-right: 10px" asp-controller="PersonalArea" asp-action="Index">Личный кабинет</a>
+                        <a class="link-primary" style="float: right" asp-controller="Authorization" asp-action="Index">Выход</a>
+                    }
                 </div>
             </div>
         </nav>
@@ -36,7 +44,6 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - WebClinic - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
