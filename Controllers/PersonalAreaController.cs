@@ -19,10 +19,18 @@ namespace WebClinic.Controllers
         public IActionResult Index()
         {
             int idUser = (int)_context.HttpContext?.Session.GetInt32("idUser");
-            var objUser = _db.Users.Include(x=>x.).FirstOrDefault(user => user.Id == idUser);
+            var objUser = _db.Users.FirstOrDefault(user => user.Id == idUser);
             if (objUser != null) 
             {
-                return View(objUser);
+                switch (objUser.Role.ToLower())
+                {
+                    case "пациент":
+                        return RedirectToAction("Index", "PatientPage");
+                    case "сотрудник":
+                        return RedirectToAction("Index", "DoctorPage");
+                    default:
+                        return StatusCode(404);
+                }
             }
             return View();
         }

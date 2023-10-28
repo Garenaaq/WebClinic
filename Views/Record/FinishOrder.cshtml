@@ -1,0 +1,20 @@
+﻿@model Record;
+
+
+<p>Пациент @Model.FkPatientNavigation.Surname @Model.FkPatientNavigation.Name @Model.FkPatientNavigation.Patronymic</p>
+<p>Дата рождения: @Model.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - @Model.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
+<p>@Model.FkPatientNavigation.Gender</p>
+<p>Время визита @Model.DateRecords.Value</p>
+
+<form method="post" asp-action="Finish" asp-controller="Record" asp-route-id=@Model.Id>
+
+    <input type="text" name="Diagnosis"/>
+
+    <textarea name="Therapy"></textarea>
+
+    <p>Сохранить в историю</p>
+    <input type="checkbox" name="save" value="Сохранить в историю"/>
+   
+    <input type="submit" value="Завершить" />
+
+</form>

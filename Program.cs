@@ -10,7 +10,6 @@ builder.Services.AddControllersWithViews();
 string connectionString = builder.Configuration.GetConnectionString("LocalDatabase");//"Database");
 
 builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(connectionString));
-
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddDistributedMemoryCache();
@@ -43,5 +42,7 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();

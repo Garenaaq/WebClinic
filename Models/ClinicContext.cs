@@ -65,7 +65,7 @@ public partial class ClinicContext : DbContext
             entity.ToTable("employes");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Age).HasColumnName("age");
+            entity.Property(e => e.Birthdate).HasColumnName("birthdate");
             entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
             .HasDefaultValue(0);
             entity.Property(e => e.FkSpeciality).HasColumnName("fk_speciality");
@@ -113,7 +113,7 @@ public partial class ClinicContext : DbContext
             entity.ToTable("patient");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Age).HasColumnName("age");
+            entity.Property(e => e.Birthdate).HasColumnName("birthdate");
             entity.Property(e => e.FkUsers).HasColumnName("fk_users");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.Name).HasColumnName("name");

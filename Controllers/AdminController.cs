@@ -34,7 +34,7 @@ namespace WebClinic.Controllers
 
             if (adminUser == null)
             {
-                return View();
+                return RedirectToAction("Index");
             }
 
             _httpContextAccessor.HttpContext?.Session.SetInt32("adminLoggedIn", 1);

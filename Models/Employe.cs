@@ -17,7 +17,7 @@ public partial class Employe
 
     public string? Patronymic { get; set; }
 
-    public int? Age { get; set; }
+    public DateTime? Birthdate { get; set; }
 
     public string? Gender { get; set; }
 

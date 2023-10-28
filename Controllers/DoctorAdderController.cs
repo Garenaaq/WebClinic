@@ -11,7 +11,6 @@ namespace WebClinic.Controllers
 {
     public class DoctorAdderController : Controller
     {
-        public bool isActive = true;
         ClinicContext _db;
         readonly IHttpContextAccessor _httpContextAccessor;
         private List<string> listWithGender = new List<string>() { "Мужской", "Женский" };
@@ -98,7 +97,7 @@ namespace WebClinic.Controllers
                 return RedirectToAction("Index", "Admin");
             }
             var model = _db.Employes.Include(x => x.FkSpecialityNavigation).ToList();
-            model.Sort();
+            
             return View(model);
         }
 
@@ -109,7 +108,7 @@ namespace WebClinic.Controllers
                 return RedirectToAction("Index", "Admin");
             }
             var model = _db.Employes.Include(x => x.FkSpecialityNavigation).ToList();
-            model.Sort();
+            
             return View(model);
         }
 
@@ -139,7 +138,7 @@ namespace WebClinic.Controllers
                 Console.WriteLine(ex.Message);
                 ViewBag.Login = "Данный логин уже занят!";
                 ViewBag.Pass = Pass;
-                return View(objPatient);
+                return RedirectToAction("Index", new { objUser = objUser});
             }
 
             var objUserDb = _db.Users.First(u => u.Login == ComputeHash(Login));

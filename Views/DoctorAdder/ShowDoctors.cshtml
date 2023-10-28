@@ -10,7 +10,7 @@
                 <h5 class="mb-1">@doctor.Surname @doctor.Name @doctor.Patronymic</h5>
                 <small>@doctor.FkSpecialityNavigation?.NameSpeciality</small>
             </div>
-            <p class="mb-1">@doctor.Age лет</p>
+            <p class="mb-1">Дата рождения: @(doctor.Birthdate.Value.ToLongDateString()) (@(DateTime.Today.Year - @doctor.Birthdate.Value.Year) лет)</p>
             <small>@doctor.Gender</small>
             <form asp-action="MakeInactive" asp-route-id=@doctor.Id>
                 <input type="submit" value="Уволить">

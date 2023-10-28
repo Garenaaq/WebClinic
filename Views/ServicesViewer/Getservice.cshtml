@@ -4,5 +4,8 @@
     <h1>@Model.NameService</h1>
     <p>@Model.Description</p>
     <p>Цена: @Model.Price</p>
-    <a asp-action="MakeOrder" asp-asp-controller="Orders" class="btn btn-primary">Заказать</a>
+    <form asp-action="MakeOrder" asp-controller="Record" asp-route-id=@Model.Id>
+        <input type="submit" value="Заказать"/>
+    </form>
+    
 </div>

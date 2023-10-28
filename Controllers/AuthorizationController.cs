@@ -21,7 +21,7 @@ namespace WebClinic.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            _context.HttpContext.Session.Clear();
+            _context.HttpContext?.Session.Clear();
             return View();
         }
 
