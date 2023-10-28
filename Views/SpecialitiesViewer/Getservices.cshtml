@@ -1,0 +1,16 @@
+﻿@model List<MedicalService>
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    @{
+        //Может стоит сделать это табличкой?    
+        foreach (var service in Model)
+        {
+            <div class="col d-flex align-items-start">
+                <div>
+                    <a asp-route-id=@service.Id asp-action ="Getservice" asp-controller="ServicesViewer"><h3 class="fs-2">@service.NameService</h3></a>
+                    <a asp-action="MakeOrder" asp-asp-controller="Orders" class="btn btn-primary">Цена: @service.Price</a>
+                </div>
+            </div>
+        }
+    }
+</div>

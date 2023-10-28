@@ -1,0 +1,57 @@
+﻿@model List<MedicalService>
+
+<a asp-action="AdminMenu" asp-controller="Admin" class="btn btn-primary">Назад в меню</a>
+<div>
+    <form asp-action="AddService">
+        <div>
+            <p>
+                <label name="NameService">Название услуги</label>
+                <input required name="NameService" />
+            </p>
+            <p>
+                <label name="FkSpeciality">Категория</label>
+                <select name="FkSpeciality" asp-items="ViewBag.Specialities"></select>
+            </p>
+            <p>
+                <label name="Price">Цена</label>
+                <input required name="Price" type="number"/>
+            </p>
+            <p>
+                <label name="Description">Описание услуги</label>
+                <textarea name="Description"></textarea>
+            </p>
+            <p>
+                <input type="submit" value="Создать"/>
+            </p>
+        </div>
+    </form>
+</div>
+
+<a asp-action="Inactive" class="btn btn-primary">
+    Перейти в архив
+</a>
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    @foreach (var item in Model)
+    {
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"></use></svg>
+            </div>
+            <div>
+                <h2>@item.NameService</h2>
+                <h5>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</h5>
+                <p>@item.Description</p>
+                <a href="#" class="btn btn-primary">
+                    @item.Price
+                </a>
+                <a asp-action="EditService" asp-route-id=@item.Id class="btn btn-primary">
+                    Изменить
+                </a>
+                <form asp-action="DeleteService" asp-route-id=@item.Id class="btn btn-primary">
+                    <input value="Удалить" type="submit">
+                </form>
+            </div>
+        </div>
+    }
+</div>

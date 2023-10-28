@@ -1,0 +1,28 @@
+﻿@model MedicalService;
+
+<div>
+    <a asp-action="Index">Назад</a>
+    <form asp-action="EditService" asp-route-flag=@Model.DeleteFlag method="post">
+        <div>
+            <p>
+                <label name="NameService">Название услуги</label>
+                <input required name="NameService" asp-for=@Model.NameService />
+            </p>
+            <p>
+                <label name="FkSpeciality">Категория</label>
+                <select name="FkSpeciality" asp-for=@Model.FkSpeciality asp-items="ViewBag.Specialities"></select>
+            </p>
+            <p>
+                <label name="Price">Цена</label>
+                <input required name="Price" asp-for=@Model.Price type="number" />
+            </p>
+            <p>
+                <label name="Description">Описание услуги</label>
+                <textarea name="Description" asp-for=@Model.Description></textarea>
+            </p>
+            <p>
+                <input type="submit" value="Обновить" />
+            </p>
+        </div>
+    </form>
+</div>

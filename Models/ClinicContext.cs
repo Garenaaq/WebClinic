@@ -66,7 +66,8 @@ public partial class ClinicContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Age).HasColumnName("age");
-            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag");
+            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
+            .HasDefaultValue(0);
             entity.Property(e => e.FkSpeciality).HasColumnName("fk_speciality");
             entity.Property(e => e.FkUsers).HasColumnName("fk_users");
             entity.Property(e => e.Gender).HasColumnName("gender");
@@ -92,7 +93,8 @@ public partial class ClinicContext : DbContext
             entity.ToTable("medical_services");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag");
+            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
+            .HasDefaultValue(0);
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.FkSpeciality).HasColumnName("fk_speciality");
             entity.Property(e => e.NameService).HasColumnName("name_service");
@@ -176,6 +178,8 @@ public partial class ClinicContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.NameSpeciality).HasColumnName("name_speciality");
+            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
+            .HasDefaultValue(0);
         });
 
         modelBuilder.Entity<User>(entity =>

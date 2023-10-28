@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebClinic;
 using WebClinic.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-string connectionString = builder.Configuration.GetConnectionString("Database");
+string connectionString = builder.Configuration.GetConnectionString("LocalDatabase");//"Database");
 
 builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(connectionString));
 

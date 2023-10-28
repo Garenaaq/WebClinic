@@ -1,0 +1,20 @@
+﻿@model List<Employe>;
+
+<div class="list-group">
+    <a asp-action="Index">Назад</a>
+    <a asp-action="ShowDoctors">Показать работающих</a>
+    @foreach (var doctor in Model.Where(x => x.DeleteFlag == 1))
+    {
+        <a class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@doctor.Surname @doctor.Name @doctor.Patronymic</h5>
+                <small>@doctor.FkSpecialityNavigation?.NameSpeciality</small>
+            </div>
+            <p class="mb-1">@doctor.Age лет</p>
+            <small>@doctor.Gender</small>
+            <form asp-action="MakeActive" asp-route-id=@doctor.Id>
+                <input type="submit" value="Вернуть">
+            </form>
+        </a>
+    }
+</div>

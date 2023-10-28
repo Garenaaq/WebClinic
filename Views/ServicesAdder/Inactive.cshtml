@@ -1,0 +1,32 @@
+﻿@model List<MedicalService>
+
+
+<a asp-action="AdminMenu" asp-controller="Admin" class="btn btn-primary">Назад в меню</a>
+<a asp-action="Index" class="btn btn-primary">
+    Перейти в активные
+</a>
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    @foreach (var item in Model)
+    {
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"></use></svg>
+            </div>
+            <div>
+                <h2>@item.NameService</h2>
+                <h5>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</h5>
+                <p>@item.Description</p>
+                <a href="#" class="btn btn-primary">
+                    @item.Price
+                </a>
+                <a asp-action="EditService" asp-route-id=@item.Id class="btn btn-primary">
+                    Изменить
+                </a>
+                <form asp-action="BringbackService" asp-route-id=@item.Id class="btn btn-primary">
+                    <input value="Восстановить" type="submit">
+                </form>
+            </div>
+        </div>
+    }
+</div>

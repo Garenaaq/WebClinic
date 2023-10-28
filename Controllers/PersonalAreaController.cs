@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebClinic.Models;
 
 namespace WebClinic.Controllers
@@ -17,8 +18,8 @@ namespace WebClinic.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            int idUser = (int)_context.HttpContext.Session.GetInt32("idUser");
-            var objUser = _db.Users.FirstOrDefault(user => user.Id == idUser);
+            int idUser = (int)_context.HttpContext?.Session.GetInt32("idUser");
+            var objUser = _db.Users.Include(x=>x.).FirstOrDefault(user => user.Id == idUser);
             if (objUser != null) 
             {
                 return View(objUser);

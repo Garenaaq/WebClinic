@@ -29,8 +29,8 @@ namespace WebClinic.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(User objUser)
         {
-            string loginSHA256 = ComputeSha256Hash(objUser.Login);
-            string passSHA256 = ComputeSha256Hash(objUser.Pass);
+            string loginSHA256 = ComputeHash(objUser.Login);
+            string passSHA256 = ComputeHash(objUser.Pass);
 
             var objUserBd = _db.Users.FirstOrDefault (user => user.Login == loginSHA256 && user.Pass == passSHA256);
 
@@ -66,22 +66,23 @@ namespace WebClinic.Controllers
             }
 
             User objUser = new User();
-            objUser.Login = ComputeSha256Hash(Login);
-            objUser.Pass = ComputeSha256Hash(Pass);
+            objUser.Login = ComputeHash(Login);
+            objUser.Pass = ComputeHash(Pass);
             objUser.Role = "Пациент";
 
             try
             {
                 _db.Users.Add(objUser);
                 _db.SaveChanges();
-            } catch 
+            } catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 ViewBag.Login = "Данный логин уже занят!";
                 ViewBag.Pass = Pass;
                 return View(objPatient);
             }
 
-            var objUserDb = _db.Users.First(u => u.Login == ComputeSha256Hash(Login));
+            var objUserDb = _db.Users.First(u => u.Login == ComputeHash(Login));
 
             objPatient.FkUsersNavigation = objUserDb;
 
@@ -101,11 +102,11 @@ namespace WebClinic.Controllers
 
         }
 
-        private string ComputeSha256Hash(string rawData)
+        private string ComputeHash(string rawData)
         {
-            using (SHA256 sha256Hash = SHA256.Create())
+            using (MD5 md5Hash = MD5.Create())
             {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                byte[] bytes = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
  
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)

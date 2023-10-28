@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 using WebClinic.Models;
 
 namespace WebClinic.Controllers
@@ -7,11 +10,13 @@ namespace WebClinic.Controllers
     public class AdminController : Controller
     {
 
-        ClinicContext _context;
+        ClinicContext _db;
+        readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AdminController(ClinicContext context)
+        public AdminController(ClinicContext db, IHttpContextAccessor httpContextAccessor)
         {
-            _context = context;
+            _db = db;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()
@@ -19,37 +24,52 @@ namespace WebClinic.Controllers
             return View();
         }
 
-        public IActionResult AddService()
+        [HttpPost]
+        public IActionResult AdminAuth([Bind("Login", "Pass")] User admin)
         {
-            ViewBag.Specialities = new SelectList(_context.Specialities.ToList(), "Id", "NameSpeciality");
+            admin.Login = ComputeHash(admin.Login);
+            admin.Pass = ComputeHash(admin.Pass);
+
+            var adminUser = _db.Users.FirstOrDefault(user => user.Login == admin.Login && user.Role == "админ");
+
+            if (adminUser == null)
+            {
+                return View();
+            }
+
+            _httpContextAccessor.HttpContext?.Session.SetInt32("adminLoggedIn", 1);
+
+            return RedirectToAction("AdminMenu");
+        }
+
+        public IActionResult AdminMenu()
+        {
+            if (_httpContextAccessor.HttpContext?.Session.GetInt32("adminLoggedIn") is null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
-        public IActionResult AddSpeciality()
+        public IActionResult Logout()
         {
-            return View();
+            _httpContextAccessor.HttpContext?.Session.Remove("adminLoggedIn");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult GetSpecialities() 
+        private string ComputeHash(string rawData)
         {
-            var specialities = _context.Specialities.ToList();
-            return PartialView(specialities);
-        }
+            using (MD5 md5Hash = MD5.Create())
+            {
+                byte[] bytes = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
-        [HttpPost]
-        public IActionResult AddServiceAction(MedicalService service)
-        {
-            _context.MedicalServices.Add(service);
-            _context.SaveChanges();
-            return RedirectToAction("AddService");
-        }
-
-        [HttpPost]
-        public IActionResult AddSpecialityAction(Speciality speciality)
-        {
-            _context.Specialities.Add(speciality);
-            _context.SaveChanges();
-            return RedirectToAction("AddSpeciality");
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }

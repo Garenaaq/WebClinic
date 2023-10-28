@@ -1,0 +1,8 @@
+﻿@model MedicalService;
+
+<div>
+    <h1>@Model.NameService</h1>
+    <p>@Model.Description</p>
+    <p>Цена: @Model.Price</p>
+    <a asp-action="MakeOrder" asp-asp-controller="Orders" class="btn btn-primary">Заказать</a>
+</div>

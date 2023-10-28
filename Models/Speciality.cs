@@ -9,6 +9,8 @@ public partial class Speciality
 
     public string? NameSpeciality { get; set; }
 
+    public int? DeleteFlag { get; set; }
+
     public virtual ICollection<Employe> Employes { get; set; } = new List<Employe>();
 
     public virtual ICollection<MedicalService> MedicalServices { get; set; } = new List<MedicalService>();
