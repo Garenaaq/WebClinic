@@ -30,7 +30,7 @@ namespace WebClinic.Controllers
                 Record record = new Record { DateRecords = null, FkPatientNavigation = patient, FkServiceNavigation = _db.MedicalServices.FirstOrDefault(x=>x.Id == id) };
                 _db.Records.Add(record);
                 _db.SaveChanges();
-                return RedirectToAction("Records", "PatientPage");
+                return RedirectToAction("ActiveRecords", "PatientPage");
             }
             return RedirectToAction("Getservice", "ServicesViewer", new {id = id});
         }
@@ -77,10 +77,9 @@ namespace WebClinic.Controllers
         }
 
         [HttpPost]
-        public IActionResult Finish(Record record, string diagnosis, string therapy, bool save, int id)
+        public IActionResult Finish(string diagnosis, string therapy, bool save, int id)
         {
-            record.Id = id;
-            Console.WriteLine();
+            Record record = _db.Records.Include(x => x.FkPatientNavigation).Include(x => x.FkServiceNavigation).Include(x => x.FkEmployeeNavigation).First(x => x.Id == id);
             if (save)
             {
                 DiseaseHistory history = new DiseaseHistory
@@ -97,9 +96,6 @@ namespace WebClinic.Controllers
             _db.Records.Remove(record);
             _db.SaveChanges();
             return RedirectToAction("ActiveRecords", "DoctorPage");
-
         }
-
-
     }
 }

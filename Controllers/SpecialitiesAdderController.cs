@@ -55,5 +55,15 @@ namespace WebClinic.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult Edit(int id, string name)
+        {
+            Speciality upd = _db.Specialities.Include(x=>x.Employes).FirstOrDefault(x => x.Id == id);
+            upd.NameSpeciality = name;
+            _db.Specialities.Update(upd);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -8,7 +8,7 @@
             <div class="col d-flex align-items-start">
                 <div>
                     <a asp-route-id=@service.Id asp-action ="Getservice" asp-controller="ServicesViewer"><h3 class="fs-2">@service.NameService</h3></a>
-                    <a asp-action="MakeOrder" asp-asp-controller="Orders" class="btn btn-primary">Цена: @service.Price</a>
+                    <a class="btn btn-primary">Цена: @service.Price</a>
                 </div>
             </div>
         }

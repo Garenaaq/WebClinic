@@ -1,6 +1,7 @@
 ﻿@model List<Speciality>
 
 <div>
+    <a asp-action="AdminMenu" asp-controller="Admin">Назад</a>
     <form asp-action="AddSpeciality">
         <p>
             <label name="NameSpeciality">Название специальности</label>
@@ -14,9 +15,13 @@
     @{
         foreach (var speciality in Model)
         {
+            <p>@speciality.NameSpeciality</p>
             <form asp-action="DeleteSpeciality" asp-route-id="@speciality.Id" method="post">
-                <p>@speciality.NameSpeciality</p>
                 <input type="submit" value="Удалить">
+            </form>
+            <form asp-action="Edit" method="post" asp-route-id=@speciality.Id>
+                <input type="text" name="name"/> 
+                <input type="submit" value="Изменить"/>
             </form>
         }
     }

@@ -1,4 +1,4 @@
-﻿@model List<Record>;
+﻿@model List<DiseaseHistory>;
 
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
     <a href="/ru/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
@@ -47,19 +47,37 @@
     <hr>
 </div>
 <div>
-    @if (Model is null){
+    @if (Model is null)
+    {
         <p>Записей нет</p>
     }
     else
     {
-        foreach(var record in Model)
+        foreach (var record in Model)
         {
-            <p>@record.FkPatientNavigation.Surname @record.FkPatientNavigation.Name @record.FkPatientNavigation.Patronymic</p>
+            <p>Пациент @record.FkPatientNavigation.Surname @record.FkPatientNavigation.Name @record.FkPatientNavigation.Patronymic</p>
             <p>Дата рождения: @record.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - record.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
             <p>@record.FkPatientNavigation.Gender</p>
-            <p>@record.FkServiceNavigation.NameService</p>
-            <form asp-action="TakeOrder" asp-controller="Record" asp-route-id=@record.Id>
-                <input type="submit" value="Принять"/>
+            <p>Номера телефонов:</p>
+            foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks)
+            {
+                <p>7 @phone</p>
+            }
+            @if (record.DateRecord is null)
+            {
+                <p>Время не назначено</p>
+            }
+            else
+            {
+                <p>Время посещения @record.DateRecord.Value</p>
+            }
+            <form method="post" asp-action="EditOrder" asp-controller="Record" asp-route-id=@record.Id>
+                <input type="time" name="Time">
+                <input type="date" name="Date">
+                <input type="submit" value="Изменить время" />
+            </form>
+            <form method="post" asp-action="FinishOrder" asp-controller="Record" asp-route-id=@record.Id>
+                <input type="submit" value="Поставить диагноз" />
             </form>
         }
     }

@@ -1,0 +1,18 @@
+﻿@model WebClinic.Models.Patient
+
+@{
+    ViewData["Title"] = "Настройки";
+}
+
+@foreach (var phone in Model.FkUsersNavigation.Phonebooks)
+{
+    <form method="post" asp-action="DeletePhone" asp-route-phoneid=@phone.Id asp-route-id=@Model.Id>
+        <p>@phone.Phone</p>
+        <input type="submit" value="Открепить" />
+    </form>
+}
+<form method="post" asp-action="AddPhone" asp-route-id=@Model.Id>
+    <label>Добавить телефон</label>
+    <input name="phone" type="tel" />
+    <input type="submit" value="Добавить" />
+</form>

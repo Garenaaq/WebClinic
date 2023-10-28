@@ -1,6 +1,5 @@
 ﻿@model List<DiseaseHistory>;
 
-
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
     <a href="/ru/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <svg class="bi pe-none me-2" width="40" height="32">
@@ -10,21 +9,21 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a asp-action="Index" class="nav-link active" aria-current="page">
+            <a href="" class="nav-link active" aria-current="page">
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#home"></use>
                 </svg>Медицинская карта
             </a>
         </li>
         <li>
-            <a asp-action="ActiveRecords" class="nav-link link-dark">
+            <a href="/ru/docs/5.2/examples/sidebars/#" class="nav-link link-dark">
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
                 </svg>Заказы
             </a>
         </li>
         <li>
-            <a asp-action="Settings" class="nav-link link-dark">
+            <a href="/ru/docs/5.2/examples/sidebars/#" class="nav-link link-dark">
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#table"></use>
                 </svg>Настройки
@@ -34,10 +33,6 @@
     <hr>
 </div>
 
-
-<p>@ViewBag.user.Surname @ViewBag.user.Name @ViewBag.user.Patronymic</p>
-<p>Дата рождения: @ViewBag.user.Birthdate.ToLongDateString() (@(DateTime.Today.Year - ViewBag.user.Birthdate.Year) лет)</p>
-<p>@ViewBag.user.Gender</p>
 <div>
     @if (Model is null)
     {
@@ -47,12 +42,13 @@
     {
         foreach (var record in Model)
         {
-            <p>Лечащий врач @record.FkEmployeeNavigation.Surname @record.FkEmployeeNavigation.Name @record.FkEmployeeNavigation.Patronymic</p>
+            <p>Пациент @record.FkPatientNavigation.Surname @record.FkPatientNavigation.Name @record.FkPatientNavigation.Patronymic</p>
+            <p>Дата рождения: @record.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - record.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
             <p>@record.FkPatientNavigation.Gender</p>
             <p>Номера телефонов:</p>
-            foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks)
+            foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks)
             {
-                <p>@phone</p>
+                <p>7 @phone</p>
             }
             @if (record.DateRecord is null)
             {
@@ -62,9 +58,14 @@
             {
                 <p>Время посещения @record.DateRecord.Value</p>
             }
-            <p>Диагноз @record.Diagnosis</p>
-            <p>Лечение:</p>
-            <p>@record.Therapy</p>
+            <form method="post" asp-action="EditOrder" asp-controller="Record" asp-route-id=@record.Id>
+                <input type="time" name="Time">
+                <input type="date" name="Date">
+                <input type="submit" value="Изменить время" />
+            </form>
+            <form method="post" asp-action="FinishOrder" asp-controller="Record" asp-route-id=@record.Id>
+                <input type="submit" value="Поставить диагноз" />
+            </form>
         }
     }
 </div>

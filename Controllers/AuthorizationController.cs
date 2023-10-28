@@ -54,7 +54,7 @@ namespace WebClinic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RegistrationPatient(Patient objPatient, string? Login, string? Pass)
+        public IActionResult RegistrationPatient(Patient objPatient, string? Login, string? Pass, string phone)
         {
             FillViewBagWithGender();
 
@@ -69,6 +69,12 @@ namespace WebClinic.Controllers
             objUser.Login = ComputeHash(Login);
             objUser.Pass = ComputeHash(Pass);
             objUser.Role = "Пациент";
+
+            var phoneNumber = new Phonebook { Phone = phone };
+
+            _db.Phonebooks.Add(phoneNumber);
+
+            objUser.Phonebooks.Add(phoneNumber);
 
             try
             {

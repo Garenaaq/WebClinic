@@ -56,7 +56,7 @@
         foreach (var record in Model)
         {
             <p>@record.FkPatientNavigation.Surname @record.FkPatientNavigation.Name @record.FkPatientNavigation.Patronymic</p>
-            <p>Дата рождения: @record.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - @record.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
+            <p>Дата рождения: @record.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - record.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
             <p>@record.FkPatientNavigation.Gender</p>
             <p>@record.FkServiceNavigation.NameService</p>
             <p>Номера телефонов:</p>

@@ -4,7 +4,7 @@
     <a href="/ru/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <svg class="bi pe-none me-2" width="40" height="32">
             <use xlink:href="#bootstrap"></use>
-        </svg> <span class="fs-4">Доктор</span>
+        </svg> <span class="fs-4">Пациент</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -12,28 +12,14 @@
             <a asp-action="Index" class="nav-link active" aria-current="page">
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#home"></use>
-                </svg>Профиль
-            </a>
-        </li>
-        <li>
-            <a asp-action="FreeRecords" class="nav-link link-dark">
-                <svg class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#speedometer2"></use>
-                </svg>Список больных
+                </svg>Медицинская карта
             </a>
         </li>
         <li>
             <a asp-action="ActiveRecords" class="nav-link link-dark">
                 <svg class="bi pe-none me-2" width="16" height="16">
                     <use xlink:href="#speedometer2"></use>
-                </svg>Предстоящие визиты
-            </a>
-        </li>
-        <li>
-            <a asp-action="History" class="nav-link link-dark">
-                <svg class="bi pe-none me-2" width="16" height="16">
-                    <use xlink:href="#speedometer2"></use>
-                </svg>Архив
+                </svg>Заказы
             </a>
         </li>
         <li>
@@ -46,21 +32,47 @@
     </ul>
     <hr>
 </div>
+
 <div>
-    @if (Model is null){
+    @if (Model is null)
+    {
         <p>Записей нет</p>
     }
     else
     {
-        foreach(var record in Model)
+        foreach (var record in Model)
         {
-            <p>@record.FkPatientNavigation.Surname @record.FkPatientNavigation.Name @record.FkPatientNavigation.Patronymic</p>
-            <p>Дата рождения: @record.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - record.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
-            <p>@record.FkPatientNavigation.Gender</p>
+            if(record.FkEmployee is null)
+            {
+                <p>Ваш заказ ещё не обработан</p>
+            }
+            else
+            {
+                <p>@record.FkEmployeeNavigation.Surname @record.FkEmployeeNavigation.Name @record.FkEmployeeNavigation.Patronymic</p>
+            }
             <p>@record.FkServiceNavigation.NameService</p>
-            <form asp-action="TakeOrder" asp-controller="Record" asp-route-id=@record.Id>
-                <input type="submit" value="Принять"/>
-            </form>
+            <p>Стоимость @record.FkServiceNavigation.Price</p>
+            <p>Номера телефонов врача:</p>
+            @if(record.FkEmployee is null)
+            {
+                
+                <p>Нет телефонов</p>
+            }
+            else
+            {
+                foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks)
+                {
+                    <p>@phone</p>
+                }
+            }
+            @if (record.DateRecords is null)
+            {
+                <p>Время не назначено</p>
+            }
+            else
+            {
+                <p>Назначено на @record.DateRecords.Value</p>
+            }
         }
     }
 </div>

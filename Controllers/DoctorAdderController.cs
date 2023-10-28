@@ -114,7 +114,7 @@ namespace WebClinic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RegistrationDoctor(Employe objPatient, string? Login, string? Pass, string? speciality)
+        public IActionResult RegistrationDoctor(Employe objPatient, string? Login, string? Pass, string? speciality, string phone)
         {
             if (!ModelState.IsValid)
             {
@@ -127,6 +127,12 @@ namespace WebClinic.Controllers
             objUser.Login = ComputeHash(Login);
             objUser.Pass = ComputeHash(Pass);
             objUser.Role = "Сотрудник";
+
+            var phoneNumber = new Phonebook { Phone = phone };
+
+            _db.Phonebooks.Add(phoneNumber);
+
+            objUser.Phonebooks.Add(phoneNumber);
 
             try
             {
