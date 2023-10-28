@@ -25,6 +25,15 @@ namespace WebClinic.Controllers
             return View(_db.Specialities.Where(x=> x.DeleteFlag == 0).ToList());
         }
 
+        public ActionResult Inactive()
+        {
+            if (_httpContextAccessor.HttpContext?.Session.GetInt32("adminLoggedIn") is null)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            return View(_db.Specialities.Where(x => x.DeleteFlag == 1).ToList());
+        }
+
         [HttpPost]
         public IActionResult AddSpeciality([Bind("NameSpeciality")] Speciality speciality)
         {
@@ -55,6 +64,23 @@ namespace WebClinic.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult BringBack(int? id)
+        {
+            if (id != null)
+            {
+                Speciality? speciality = _db.Specialities.FirstOrDefault(x => x.Id == id);
+                if (speciality != null)
+                {
+                    speciality.DeleteFlag = 0;
+                    _db.Specialities.Update(speciality);
+                    _db.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult Edit(int id, string name)
         {
