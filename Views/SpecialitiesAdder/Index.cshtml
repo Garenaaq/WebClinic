@@ -1,30 +1,59 @@
 ﻿@model List<Speciality>
 
 <div>
-    <a asp-action="AdminMenu" asp-controller="Admin">Назад</a>
-    <a asp-action="Inactive">Перейти к удалённым</a>
-    <form asp-action="AddSpeciality">
-        <p>
-            <label name="NameSpeciality">Название специальности</label>
-            <input type="text" name="NameSpeciality"/>
-        </p>
-        <p>
-            <input type="submit" value="Создать"/>
-        </p>
-    </form>
+    <ul class="nav nav-tabs" id="tab-example" role="tablist">
+        <li class="nav-item active">
+            <a class="nav-link active" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="Index">Активные</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="Inactive">Удалённые</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="first-tab" data-toggle="tab" role="tab" aria-controls="first-tab-content"
+               aria-selected="true" asp-action="AdminMenu" asp-controller="Admin">Назад в меню</a>
+        </li>
+    </ul>
+    <div class="admin-menu">
+        <form class="speciality-form" asp-action="AddSpeciality">
+            <div class="form-group">
+                <label class="pt-2 pb-2" for="NameSpeciality">Название специальности</label>
+                <input type="text" class="form-control w-50" id="NameSpeciality" name="NameSpeciality" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-2 mb-2">Создать</button>
+        </form>
+    </div>
 
-    @{
-        foreach (var speciality in Model)
+    <div class="speciality-list">
+        @foreach (var speciality in Model)
         {
-            <p>@speciality.NameSpeciality</p>
-            <form asp-action="DeleteSpeciality" asp-route-id="@speciality.Id" method="post">
-                <input type="submit" value="Удалить">
-            </form>
-            <form asp-action="Edit" method="post" asp-route-id=@speciality.Id>
-                <input type="text" name="name"/> 
-                <input type="submit" value="Изменить"/>
-            </form>
+            <div class="card mb-2 mt-2">
+                <div class="card-body">
+                    <p>@speciality.NameSpeciality</p>
+                    <div class="input-group mb-3">
+                        <form asp-action="Edit" method="post" asp-route-id=@speciality.Id>
+                            <div class="form-group row" style="flex-wrap: nowrap; margin-left: 1px">
+                                <input type="text" class="form-control mr-2" name="name" />
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Изменить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <form asp-action="DeleteSpeciality" asp-route-id="@speciality.Id" method="post">
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         }
-    }
-
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+
+    </script>
+}

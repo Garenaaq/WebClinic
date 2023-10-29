@@ -1,20 +1,43 @@
 ﻿@model List<Speciality>
 
 <div>
-    <a asp-action="AdminMenu" asp-controller="Admin">Назад</a>
-    <a asp-action="Index">Перейти к активным</a>
-
+    <ul class="nav nav-tabs" id="tab-example" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="Index">Активные</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="Inactive">Удалённые</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="first-tab" data-toggle="tab" role="tab" aria-controls="first-tab-content"
+               aria-selected="true" asp-action="AdminMenu" asp-controller="Admin">Назад в меню</a>
+        </li>
+    </ul>
     @{
         foreach (var speciality in Model)
         {
-            <p>@speciality.NameSpeciality</p>
-            <form asp-action="BringBack" asp-route-id="@speciality.Id" method="post">
-                <input type="submit" value="Вернуть">
-            </form>
-            <form asp-action="Edit" method="post" asp-route-id=@speciality.Id>
-                <input type="text" name="name" />
-                <input type="submit" value="Изменить" />
-            </form>
+            <div class="card mb-2 mt-2">
+                <div class="card-body">
+                    <div>
+                        <p class="mb-1">@speciality.NameSpeciality</p>
+                        <form asp-action="BringBack" asp-route-id="@speciality.Id" method="post">
+                            <input class="btn btn-success mb-2" type="submit" value="Вернуть">
+                        </form>
+                    </div>
+                    <div class="input-group mb-3">
+                        <form asp-action="Edit" method="post" asp-route-id=@speciality.Id>
+                            <div class="form-group row" style="flex-wrap: nowrap; margin-left: 1px">
+                                <input type="text" class="form-control mr-2" name="name" />
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Изменить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         }
     }
 

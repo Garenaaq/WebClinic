@@ -116,6 +116,7 @@ namespace WebClinic.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RegistrationDoctor(Employe objPatient, string? Login, string? Pass, string? speciality, string phone)
         {
+            Console.WriteLine(Login);
             if (!ModelState.IsValid)
             {
                 ViewBag.Login = Login;

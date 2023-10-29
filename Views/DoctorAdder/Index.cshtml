@@ -3,108 +3,125 @@
 @{
     ViewData["Title"] = "Регистрация врача";
 }
-<a asp-controller="Admin" asp-action="AdminMenu">Назад</a>
-<form method="post" id="myForm" asp-action="RegistrationDoctor">
-    <div class="border p-3">
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Фамилия
-            </div>
-            <div class="col-8">
-                <input class="form-control" asp-for="Surname" />
-                <span class="text-danger" asp-validation-for="Surname"></span>
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Имя
-            </div>
-            <div class="col-8">
-                <input class="form-control" asp-for="Name" />
-                <span class="text-danger" asp-validation-for="Name"></span>
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Отчество
-            </div>
-            <div class="col-8">
-                <input class="form-control" asp-for="Patronymic" />
-                <span class="text-danger" asp-validation-for="Patronymic"></span>
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Возраст
-            </div>
-            <div class="col-8">
-                <input class="form-control" type="date" asp-for="Birthdate" />
-                <span class="text-danger" asp-validation-for="Birthdate"></span>
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Пол
-            </div>
-            <div class="col-8">
-                <select asp-items="@ViewBag.listWithGender" class="form-control" asp-for="Gender">
-                    <option disabled selected>Пол</option>
-                </select>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Специальность
-            </div>
-            <div class="col-8">
-                <select asp-items="@ViewBag.specialities" class="form-control" name="speciality">
-                    <option disabled selected>Специальность</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Номер телефона
-            </div>
-            <div class="col-8">
-                <input required class="form-control" type="tel" name="phone" />
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Логин
-            </div>
-            @if (ViewBag.Login == "Данный логин уже занят!")
-            {
+
+<div>
+    <ul class="nav nav-tabs" id="tab-example" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="Index">Регистрация врача</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="ShowDoctors">Работающие врачи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+               aria-selected="false" asp-action="ShowInactive">Не работающие врачи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="first-tab" data-toggle="tab" role="tab" aria-controls="first-tab-content"
+               aria-selected="true" asp-action="AdminMenu" asp-controller="Admin">Назад в меню</a>
+        </li>
+    </ul>
+    <form method="post" id="myForm" asp-action="RegistrationDoctor">
+        <div class="border p-3">
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Фамилия
+                </div>
                 <div class="col-8">
-                    <input class="form-control" name="Login" placeholder="@ViewBag.Login" required />
+                    <input class="form-control" asp-for="Surname" />
+                    <span class="text-danger" asp-validation-for="Surname"></span>
                 </div>
-            }
-            else
-            {
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Имя
+                </div>
                 <div class="col-8">
-                    <input class="form-control" name="Login" value="@ViewBag.Login" required />
-                </div>
-            }
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-4">
-                Пароль
-            </div>
-            <div class="col-8">
-                <input class="form-control" name="Pass" value="@ViewBag.Pass" required />
-            </div>
-        </div>
-        <div class="form-group row m-3">
-            <div class="col-8 offset-4 row">
-                <div class="col">
-                    <input type="submit" class="btn btn-success w-75" value="Добавить" />
-                </div>
-                <div class="col">
-                    <a class="btn btn-primary w-75" asp-action="ShowDoctors">Просмотреть врачей</a>
+                    <input class="form-control" asp-for="Name" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
             </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Отчество
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="Patronymic" />
+                    <span class="text-danger" asp-validation-for="Patronymic"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Возраст
+                </div>
+                <div class="col-8">
+                    <input class="form-control" type="date" asp-for="Birthdate" />
+                    <span class="text-danger" asp-validation-for="Birthdate"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Пол
+                </div>
+                <div class="col-8">
+                    <select asp-items="@ViewBag.listWithGender" class="form-control" asp-for="Gender">
+                        <option disabled selected>Пол</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Специальность
+                </div>
+                <div class="col-8">
+                    <select asp-items="@ViewBag.specialities" class="form-control" name="speciality">
+                        <option disabled selected>Специальность</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Номер телефона
+                </div>
+                <div class="col-8">
+                    <input required class="form-control" type="tel" name="phone" />
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Логин
+                </div>
+                @if (ViewBag.Login == "Данный логин уже занят!")
+                {
+                    <div class="col-8">
+                        <input class="form-control" name="Login" placeholder="@ViewBag.Login" required />
+                    </div>
+                }
+                else
+                {
+                    <div class="col-8">
+                        <input class="form-control" name="Login" value="@ViewBag.Login" required />
+                    </div>
+                }
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Пароль
+                </div>
+                <div class="col-8">
+                    <input class="form-control" name="Pass" value="@ViewBag.Pass" required />
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-8 offset-4 row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-success w-75" value="Добавить" />
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

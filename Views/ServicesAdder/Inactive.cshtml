@@ -1,32 +1,45 @@
-﻿@model List<MedicalService>
+﻿@model List<MedicalService>;
 
-
-<a asp-action="AdminMenu" asp-controller="Admin" class="btn btn-primary">Назад в меню</a>
-<a asp-action="Index" class="btn btn-primary">
-    Перейти в активные
-</a>
-
-<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-    @foreach (var item in Model)
-    {
-        <div class="col d-flex align-items-start">
-            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"></use></svg>
-            </div>
-            <div>
-                <h2>@item.NameService</h2>
-                <h5>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</h5>
-                <p>@item.Description</p>
-                <a href="#" class="btn btn-primary">
-                    @item.Price
-                </a>
-                <a asp-action="EditService" asp-route-id=@item.Id class="btn btn-primary">
-                    Изменить
-                </a>
-                <form asp-action="BringbackService" asp-route-id=@item.Id class="btn btn-primary">
-                    <input value="Восстановить" type="submit">
-                </form>
-            </div>
+@{
+    ViewData["Title"] = "Неактивные услуги";
+}
+<ul class="nav nav-tabs" id="tab-example" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+           aria-selected="false" asp-action="Index">Добавить услугу</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+           aria-selected="false" asp-action="ActiveServices">Активные услуги</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
+           aria-selected="false" asp-action="Inactive">Архив услуг</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="first-tab" data-toggle="tab" role="tab" aria-controls="first-tab-content"
+           aria-selected="true" asp-action="AdminMenu" asp-controller="Admin">Назад в меню</a>
+    </li>
+</ul>
+@foreach (var item in Model)
+{
+    <div class="col d-flex align-items-start">
+        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+            <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"></use></svg>
         </div>
-    }
-</div>
+        <div>
+            <h2>@item.NameService</h2>
+            <h5>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</h5>
+            <p>@item.Description</p>
+            <a href="#" class="btn btn-primary">
+                @item.Price
+            </a>
+            <a asp-action="EditService" asp-route-id=@item.Id class="btn btn-primary">
+                Изменить
+            </a>
+            <form asp-action="BringbackService" asp-route-id=@item.Id>
+                <input value="Восстановить" type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+}

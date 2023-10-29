@@ -32,6 +32,7 @@ namespace WebClinic.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddService([Bind("NameService", "Description", "FkSpeciality", "Price")] MedicalService service)
         {
             _db.MedicalServices.Add(service);
@@ -62,6 +63,7 @@ namespace WebClinic.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditService(MedicalService service, int flag)
         {
             service.DeleteFlag = flag;
@@ -71,6 +73,7 @@ namespace WebClinic.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteService(int id)
         {
 
@@ -82,10 +85,11 @@ namespace WebClinic.Controllers
                 _db.MedicalServices.Update(deleted);
                 _db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ActiveServices");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult BringbackService(int id)
         {
 
@@ -97,8 +101,19 @@ namespace WebClinic.Controllers
                 _db.MedicalServices.Update(deleted);
                 _db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Inactive");
         }
 
+        [HttpGet]
+        public ActionResult ActiveServices()
+        {
+            if (_httpContextAccessor.HttpContext?.Session.GetInt32("adminLoggedIn") is null)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            List<MedicalService> model = _db.MedicalServices.ToList();
+
+            return View(model);
+        }
     }
 }
