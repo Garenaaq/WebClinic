@@ -19,6 +19,7 @@ namespace WebClinic.Controllers
         public IActionResult Index()
         {
             int idUser = (int)_context.HttpContext?.Session.GetInt32("idUser");
+
             var objUser = _db.Users.FirstOrDefault(user => user.Id == idUser);
             if (objUser != null) 
             {

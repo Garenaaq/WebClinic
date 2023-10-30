@@ -21,5 +21,12 @@ namespace WebClinic.Controllers
             var specialities = _context.Specialities.ToList();
             return View(specialities);
         }
+
+        public IActionResult Map()
+        {
+            ViewBag.idUser = _contextSession.HttpContext?.Session.GetInt32("idUser");
+
+            return View();
+        }
     }
 }

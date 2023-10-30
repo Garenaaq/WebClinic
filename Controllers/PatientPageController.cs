@@ -23,6 +23,7 @@ namespace WebClinic.Controllers
         public IActionResult Index()
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             User user = null;
             Patient employe = _db.Patients.FirstOrDefault(x => x.FkUsers == userId);
             ViewBag.user = employe;
@@ -44,6 +45,7 @@ namespace WebClinic.Controllers
         public IActionResult ActiveRecords()
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             User user = null;
             Patient employe = _db.Patients.FirstOrDefault(x => x.FkUsers == userId);
             if (employe != null)
