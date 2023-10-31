@@ -26,10 +26,10 @@
 {
     <div class="card mb-2 mt-2">
         <div class="card-body">
-            <h1>@item.NameService</h1>
+            <h1>Название услуги: @item.NameService</h1>
             <p>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</p>
-            <h4>@item.Description</h4>
-            <p>Цена: @item.Price</p>
+            <p>Описание: @item.Description</p>
+            <h5>Цена: @item.Price</h5>
             <div class="form-group row" style="flex-wrap: nowrap; margin-left: 1px;">
                 <a asp-action="EditService" asp-route-id=@item.Id class="btn btn-primary" style="width: auto">
                     Изменить
