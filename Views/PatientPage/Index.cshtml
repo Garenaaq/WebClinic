@@ -33,6 +33,11 @@
         <p>@ViewBag.user.Surname @ViewBag.user.Name @ViewBag.user.Patronymic</p>
         <p>Дата рождения: @ViewBag.user.Birthdate.ToLongDateString() (@(DateTime.Today.Year - ViewBag.user.Birthdate.Year) лет)</p>
         <p>Пол: @ViewBag.user.Gender</p>
+        @foreach (var phones in ViewBag.phones)
+        {
+           <p>@phones.Phone</p>
+        }
+
     </div>
 </div>
 <div>

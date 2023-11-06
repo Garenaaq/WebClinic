@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-string connectionString = builder.Configuration.GetConnectionString("LocalDatabase");//"Database");
+string connectionString = builder.Configuration.GetConnectionString("LocalDatabase");//Database");
 
 builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
