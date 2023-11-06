@@ -100,12 +100,13 @@ namespace WebClinic.Controllers
 
         public IActionResult Settings()
         {
+            var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             ViewBag.listWithGender = listWithGender.Select(sex => new SelectListItem()
             {
                 Text = sex,
                 Value = sex
             });
-            var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
             User user = null;
             Patient employe = _db.Patients.Include(x => x.FkUsersNavigation).FirstOrDefault(x => x.FkUsers == userId);
             if (employe != null)

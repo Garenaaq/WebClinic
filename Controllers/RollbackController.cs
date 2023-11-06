@@ -26,5 +26,17 @@ namespace WebClinic.Controllers
             _db.Database.ExecuteSqlRaw($"CALL func_back('{time}')");
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RollBackNum(int num)
+        {
+            if (num > 0)
+            {
+                _db.Database.ExecuteSqlRaw($"CALL func_back_num({num})");
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
