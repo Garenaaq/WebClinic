@@ -60,7 +60,7 @@
             <p>@record.FkPatientNavigation.Gender</p>
             <p>@record.FkServiceNavigation.NameService</p>
             <p>Номера телефонов:</p>
-            foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks)
+            foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks.ToList())
             {
                 <p>7 @phone</p>
             }

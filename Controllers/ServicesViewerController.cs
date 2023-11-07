@@ -15,6 +15,7 @@ namespace WebClinic.Controllers
         public IActionResult Getservice(int id)
         {
             var service = _db.MedicalServices.FirstOrDefault(x => x.Id == id);
+            //ViewBag.idUser = userId;
             return View(service);
         }
 

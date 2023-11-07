@@ -15,6 +15,7 @@ namespace WebClinic.Controllers
         public IActionResult Getservices(int id)
         {
             var services = _db.MedicalServices.Where(service => service.Id == id).ToList();
+            //ViewBag.idUser = userId;
             return View(services);
         }
     }

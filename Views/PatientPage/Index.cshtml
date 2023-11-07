@@ -47,7 +47,7 @@
             <p>Лечащий врач @record.FkEmployeeNavigation.Surname @record.FkEmployeeNavigation.Name @record.FkEmployeeNavigation.Patronymic</p>
             <p>@record.FkPatientNavigation.Gender</p>
             <p>Номера телефонов:</p>
-            foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks)
+            foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks.ToList())
             {
                 <p>@phone</p>
             }

@@ -59,7 +59,7 @@
             <p>Дата рождения: @record.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - record.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
             <p>@record.FkPatientNavigation.Gender</p>
             <p>Номера телефонов:</p>
-            foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks)
+            foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks.ToList())
             {
                 <p>7 @phone</p>
             }

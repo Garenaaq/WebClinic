@@ -24,16 +24,18 @@ namespace WebClinic.Controllers
         public IActionResult Index()
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             if (userId is null)
             {
                 return StatusCode(403);
             }
-            return View(_db.Employes.Include(x=>x.FkUsers).FirstOrDefault(x=>x.FkUsers == userId));
+            return View(_db.Employes.Include(x=>x.FkUsersNavigation).FirstOrDefault(x=>x.FkUsers == userId));
         }
 
         public IActionResult FreeRecords()
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             if (userId is null)
             {
                 return StatusCode(403);
@@ -53,6 +55,7 @@ namespace WebClinic.Controllers
         public IActionResult ActiveRecords()
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             User user = null;
             Employe employe = _db.Employes.First(x => x.FkUsers == userId);
             if(employe != null) 
@@ -73,6 +76,7 @@ namespace WebClinic.Controllers
         public IActionResult History()
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             User user = null;
             Employe employe = _db.Employes.FirstOrDefault(x => x.FkUsers == userId);
             if (employe != null)
@@ -100,6 +104,7 @@ namespace WebClinic.Controllers
                 Value = sex
             });
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             User user = null;
             Employe employe = _db.Employes.Include(x=>x.FkSpecialityNavigation).Include(x=>x.FkUsersNavigation).FirstOrDefault(x => x.FkUsers == userId);
             if (employe != null)

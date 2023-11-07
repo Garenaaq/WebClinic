@@ -17,7 +17,6 @@ namespace WebClinic.Controllers
         public IActionResult Index()
         {
             ViewBag.idUser = _contextSession.HttpContext?.Session.GetInt32("idUser");
-
             var specialities = _context.Specialities.ToList();
             return View(specialities);
         }
