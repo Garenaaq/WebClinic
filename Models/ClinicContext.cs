@@ -31,6 +31,8 @@ public partial class ClinicContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<Rollback> Rollback {get; set;}
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DiseaseHistory>(entity =>
@@ -198,6 +200,19 @@ public partial class ClinicContext : DbContext
                 .HasMaxLength(64)
                 .HasColumnName("pass");
             entity.Property(e => e.Role).HasColumnName("role");
+        });
+
+        modelBuilder.Entity<Rollback>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("id");
+
+            entity.ToTable("rollback_table");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Time).HasColumnName("time");
+            entity.Property(e => e.Changes).HasColumnName("changes");
+            entity.Property(e => e.Method_).HasColumnName("method_");
+            entity.Property(e => e.TabName).HasColumnName("tab_name");
         });
 
         OnModelCreatingPartial(modelBuilder);

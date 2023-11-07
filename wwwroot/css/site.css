@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.my-custom-scrollbar {
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}

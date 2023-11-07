@@ -4,7 +4,36 @@
     ViewData["Title"] = "Настройки";
 }
 
-@foreach (var phone in Model.FkUsersNavigation.Phonebooks.ToList())
+<div class="flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; display: inline-block">
+    <span class="fs-4">Пациент</span>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a asp-action="Index" class="nav-link link-dark" aria-current="page">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#home"></use>
+                </svg>Медицинская карта
+            </a>
+        </li>
+        <li>
+            <a asp-action="ActiveRecords" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                </svg>Заказы
+            </a>
+        </li>
+        <li>
+            <a asp-action="Settings" class="nav-link active">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#table"></use>
+                </svg>Настройки
+            </a>
+        </li>
+    </ul>
+    <hr>
+</div>
+
+@foreach (var phone in Model.FkUsersNavigation.Phonebooks)
 {
     <form method="post" asp-action="DeletePhone" asp-route-phoneid=@phone.Id asp-route-id=@Model.Id>
         <p>@phone.Phone</p>

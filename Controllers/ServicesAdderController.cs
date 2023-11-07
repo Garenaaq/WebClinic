@@ -69,7 +69,7 @@ namespace WebClinic.Controllers
             service.DeleteFlag = flag;
             _db.MedicalServices.Update(service);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ActiveServices");
         }
 
         [HttpPost]

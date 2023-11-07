@@ -23,23 +23,17 @@
 </ul>
 @foreach (var item in Model)
 {
-    <div class="col d-flex align-items-start">
-        <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-            <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"></use></svg>
-        </div>
-        <div>
-            <h2>@item.NameService</h2>
-            <h5>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</h5>
-            <p>@item.Description</p>
-            <a href="#" class="btn btn-primary">
-                @item.Price
-            </a>
-            <a asp-action="EditService" asp-route-id=@item.Id class="btn btn-primary">
-                Изменить
-            </a>
-            <form asp-action="BringbackService" asp-route-id=@item.Id>
-                <input value="Восстановить" type="submit" class="btn btn-primary">
-            </form>
+    <div class="card mb-2 mt-2">
+        <div class="card-body">
+            <h1>Название услуги: @item.NameService</h1>
+            <p>Предоставляет: @item.FkSpecialityNavigation?.NameSpeciality</p>
+            <p>Описание: @item.Description</p>
+            <h5>Цена: @item.Price</h5>
+            <div class="form-group row" style="flex-wrap: nowrap; margin-left: 1px;">
+                <form asp-action="BringbackService" style="padding-left: 0px" asp-route-id=@item.Id>
+                    <input value="Восстановить" type="submit" class="btn btn-primary">
+                </form>
+            </div>
         </div>
     </div>
 }

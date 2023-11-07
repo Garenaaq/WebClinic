@@ -24,9 +24,10 @@ namespace WebClinic.Controllers
         {
             var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
             ViewBag.idUser = userId;
-            User user = null;
+            User user = _db.Users.Include(x=>x.Phonebooks).FirstOrDefault(x=>x.Id == userId);
             Patient employe = _db.Patients.FirstOrDefault(x => x.FkUsers == userId);
             ViewBag.user = employe;
+            ViewBag.phones = user.Phonebooks.ToList();
             if (employe != null)
             {
                 var model = _db.DiseaseHistories.Include(x => x.FkEmployeeNavigation).Include(x => x.FkPatientNavigation).Where(x => x.FkPatient == employe.Id).ToList();
@@ -100,12 +101,13 @@ namespace WebClinic.Controllers
 
         public IActionResult Settings()
         {
+            var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
+            ViewBag.idUser = userId;
             ViewBag.listWithGender = listWithGender.Select(sex => new SelectListItem()
             {
                 Text = sex,
                 Value = sex
             });
-            var userId = _httpContextAccessor.HttpContext?.Session.GetInt32("idUser");
             User user = null;
             Patient employe = _db.Patients.Include(x => x.FkUsersNavigation).FirstOrDefault(x => x.FkUsers == userId);
             if (employe != null)

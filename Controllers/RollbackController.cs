@@ -1,83 +1,42 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebClinic.Models;
 
 namespace WebClinic.Controllers
 {
     public class RollbackController : Controller
     {
-        // GET: RollbackController
+        ClinicContext _db;
+        public RollbackController(ClinicContext db) 
+        {
+            _db = db;
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            List<Rollback> objRollback = _db.Rollback.ToList();
+            return View(objRollback);
         }
 
-        // GET: RollbackController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: RollbackController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: RollbackController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult RollBack(string time) 
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _db.Database.ExecuteSqlRaw($"CALL func_back('{time}')");
+            return RedirectToAction("Index");
         }
 
-        // GET: RollbackController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: RollbackController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult RollBackNum(int num)
         {
-            try
+            if (num > 0)
             {
-                return RedirectToAction(nameof(Index));
+                _db.Database.ExecuteSqlRaw($"CALL func_back_num({num})");
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: RollbackController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: RollbackController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

@@ -32,7 +32,7 @@ namespace WebClinic.Controllers
             string loginSHA256 = ComputeHash(objUser.Login);
             string passSHA256 = ComputeHash(objUser.Pass);
 
-            var objUserBd = _db.Users.FirstOrDefault (user => user.Login == loginSHA256 && user.Pass == passSHA256);
+            var objUserBd = _db.Users.FirstOrDefault(user => user.Login == loginSHA256 && user.Pass == passSHA256);
 
             if (objUserBd == null)
             {
