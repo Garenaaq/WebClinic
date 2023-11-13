@@ -114,14 +114,20 @@ namespace WebClinic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RegistrationDoctor(Employe objPatient, string? Login, string? Pass, string? speciality, string phone)
+        public IActionResult Index(Employe objPatient, string? Login, string? Pass, string? speciality, string phone)
         {
             Console.WriteLine(Login);
             if (!ModelState.IsValid)
             {
                 ViewBag.Login = Login;
                 ViewBag.Pass = Pass;
-                return RedirectToAction("Index", objPatient);
+                FillViewBagWithGender();
+                ViewBag.specialities = _db.Specialities.Select(speciality => new SelectListItem()
+                {
+                    Text = speciality.NameSpeciality,
+                    Value = speciality.NameSpeciality
+                });
+                return View(objPatient);
             }
 
             User objUser = new User();

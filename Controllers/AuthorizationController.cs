@@ -46,6 +46,7 @@ namespace WebClinic.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public IActionResult RegistrationPatient() 
         {
             FillViewBagWithGender();

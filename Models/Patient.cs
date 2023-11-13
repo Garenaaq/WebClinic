@@ -12,16 +12,19 @@ public partial class Patient
     [ValidateNever]
     public int? FkUsers { get; set; }
     [Required(ErrorMessage = "Вы не ввели имя")]
-    public string? Name { get; set; }
+    [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "Имя должно содержать только буквы")]
+    public string Name { get; set; }
     [Required(ErrorMessage = "Вы не ввели фамилию")]
-    public string? Surname { get; set; }
+    [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "Фамилия должна содержать только буквы")]
+    public string Surname { get; set; }
     [Required(ErrorMessage = "Вы не ввели отчество")]
-    public string? Patronymic { get; set; }
+    [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "Отчество должно содержать только буквы")]
+    public string Patronymic { get; set; }
+    //[Required(ErrorMessage = "Вы не указали возраст")]
     //[Range(14, int.MaxValue, ErrorMessage = "Регистрироваться можно от 14 лет")]
-    [Required(ErrorMessage = "Вы не указали возраст")]
     public DateTime? Birthdate { get; set; }
     [Required(ErrorMessage = "Вы не указали пол")]
-    public string? Gender { get; set; }
+    public string Gender { get; set; }
 
     public virtual ICollection<DiseaseHistory> DiseaseHistories { get; set; } = new List<DiseaseHistory>();
 
