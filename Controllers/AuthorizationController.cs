@@ -96,6 +96,7 @@ namespace WebClinic.Controllers
             _db.Patients.Add(objPatient);
             _db.SaveChanges();
 
+            TempData["SuccessMessage"] = "Вы были успешно зарегистрированны";
             return RedirectToAction("Index");
         }
 
