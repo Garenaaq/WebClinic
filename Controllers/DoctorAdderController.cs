@@ -73,9 +73,22 @@ namespace WebClinic.Controllers
         [HttpPost]
         public IActionResult MakeInactive(int id)
         {
-            var doctor = _db.Employes.First(x => x.Id == id);
+            var doctor = _db.Employes.Include(x=>x.Records).First(x => x.Id == id);
             doctor.DeleteFlag = 1;
             _db.Employes.Update(doctor);
+
+            var activeDoctors = _db.Employes.Include(x=>x.Records).Where(x => x.DeleteFlag == 0 && x.FkSpeciality == doctor.FkSpeciality);
+
+            if (activeDoctors.Count() != 0)
+            {
+                var freeDoctor = activeDoctors.OrderBy(x => x.Records.Count).First();
+
+                foreach (var record in doctor.Records)
+                {
+                    record.FkEmployeeNavigation = freeDoctor;
+                }
+            }
+
             _db.SaveChanges();
             return RedirectToAction("ShowDoctors");
         }
