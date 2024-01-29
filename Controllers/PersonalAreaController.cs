@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebClinic.Models;
+using WebClinic.Data;
 
 namespace WebClinic.Controllers
 {

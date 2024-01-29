@@ -1,15 +1,17 @@
-﻿@model List<Speciality>
+﻿@page
+@model Home.IndexModel
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-    @foreach(var item in Model)
+    @foreach(var speciality in Model.specialities)
     {
         <div class="col d-flex align-items-start">
             <div>
-                <a asp-route-id=@item.Id asp-action="GetServices" asp-controller="SpecialitiesViewer">
-                    <h4 class="fw-bold mb-0">@item.NameSpeciality</h4>
+                <a asp-route-id=@speciality.Id asp-page="/SpecialitiesViewer/GetServices">
+                    <h4 class="fw-bold mb-0">@speciality.NameSpeciality</h4>
                 </a>
             </div>
         </div>

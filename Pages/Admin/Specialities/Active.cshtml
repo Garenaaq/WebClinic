@@ -1,40 +1,41 @@
-﻿@model List<Speciality>
+﻿@page
+@model Specialities.ActiveModel
 
 <div>
     <ul class="nav nav-tabs" id="tab-example" role="tablist">
         <li class="nav-item active">
             <a class="nav-link active" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
-               aria-selected="false" asp-action="Index">Активные</a>
+               aria-selected="false" asp-page="/Active">Активные</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="second-tab" data-toggle="tab" role="tab" aria-controls="second-tab-content"
-               aria-selected="false" asp-action="Inactive">Удалённые</a>
+               aria-selected="false" asp-page="/Inactive">Удалённые</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="first-tab" data-toggle="tab" role="tab" aria-controls="first-tab-content"
-               aria-selected="true" asp-action="AdminMenu" asp-controller="Admin">Назад в меню</a>
+               aria-selected="true" asp-page="/Admin/Index">Назад в меню</a>
         </li>
     </ul>
     <div class="admin-menu">
-        <form class="speciality-form" asp-action="AddSpeciality">
+        <form class="speciality-form">
             <div class="form-group">
-                <label class="pt-2 pb-2" for="NameSpeciality">Название специальности</label>
-                <input type="text" class="form-control w-50" id="NameSpeciality" name="NameSpeciality" />
+                <label class="pt-2 pb-2" for="@Model.speciality.NameSpeciality">Название специальности</label>
+                <input type="text" class="form-control w-50" id="NameSpeciality" asp-for="@Model.speciality.NameSpeciality" />
             </div>
             <button type="submit" class="btn btn-primary mt-2 mb-2">Создать</button>
         </form>
     </div>
 
     <div class="speciality-list">
-        @foreach (var speciality in Model)
+        @foreach (var speciality in Model.specialities)
         {
             <div class="card mb-2 mt-2">
                 <div class="card-body">
                     <p>@speciality.NameSpeciality</p>
                     <div class="input-group mb-3">
-                        <form asp-action="Edit" method="post" asp-route-id=@speciality.Id>
+                        <form method="post" asp-page-handler="Update" asp-route-id="@speciality.Id">
                             <div class="form-group row" style="flex-wrap: nowrap; margin-left: 1px">
-                                <input type="text" class="form-control mr-2" name="name" />
+                                <input type="text" class="form-control mr-2" asp-for="@Model.name" />
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary">Изменить</button>
                                 </div>
@@ -42,7 +43,7 @@
                         </form>
                     </div>
                     <div>
-                        <form asp-action="DeleteSpeciality" asp-route-id="@speciality.Id" method="post">
+                        <form asp-page-handler="Delete" asp-route-id="@speciality.Id" method="post">
                             <button type="submit" class="btn btn-danger">Удалить</button>
                         </form>
                     </div>

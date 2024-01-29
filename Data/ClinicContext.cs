@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using WebClinic.Models;
 
-namespace WebClinic.Models;
+namespace WebClinic.Data;
 
 public partial class ClinicContext : DbContext
 {
@@ -31,7 +32,7 @@ public partial class ClinicContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<Rollback> Rollback {get; set;}
+    public virtual DbSet<Rollback> Rollback { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

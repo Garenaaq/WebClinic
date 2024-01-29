@@ -1,14 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using WebClinic;
-using WebClinic.Models;
+using WebClinic.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+string connectionString = builder.Configuration["Database"] ?? throw new Exception("Database doesn't exist");
 
-string connectionString = builder.Configuration.GetConnectionString("LocalDatabase");//Database");
-
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -38,6 +36,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseSession();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

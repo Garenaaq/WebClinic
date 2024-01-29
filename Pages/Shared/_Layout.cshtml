@@ -26,7 +26,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Map">Карта</a>
                         </li>
                     </ul>
-                    @if (ViewBag.idUser == null)
+                    @if (ViewData["idUser"] == null)
                     {
                         <a class="link-primary" style="float: right" asp-controller="Authorization" asp-action="Index">Вход</a>
                     }

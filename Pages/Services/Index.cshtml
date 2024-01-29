@@ -1,0 +1,15 @@
+﻿@page "{id:int?}"
+@model Services.IndexModel
+@{
+}
+
+<div>
+    <h1>@Model.medicalService.NameService</h1>
+    <p>@Model.medicalService.Description</p>
+    <p>Цена: @Model.medicalService.Price</p>
+    <form asp-action="MakeOrder" asp-controller="Record" asp-route-id=@Model.medicalService.Id>
+        <input type="submit" value="Заказать" />
+    </form>
+
+</div>
+

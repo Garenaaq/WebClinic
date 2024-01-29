@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using WebClinic.Data;
 using WebClinic.Models;
 
 namespace WebClinic.Controllers

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebClinic.Models;
+using WebClinic.Data;
 
 namespace WebClinic.Controllers
 {

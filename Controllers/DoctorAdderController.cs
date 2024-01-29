@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
 using System.Security.Cryptography;
 using System.Text;
+using WebClinic.Data;
 using WebClinic.Models;
 
 namespace WebClinic.Controllers
