@@ -17,7 +17,7 @@
         </li>
     </ul>
     <div class="admin-menu">
-        <form class="speciality-form">
+        <form class="speciality-form" method="post">
             <div class="form-group">
                 <label class="pt-2 pb-2" for="@Model.speciality.NameSpeciality">Название специальности</label>
                 <input type="text" class="form-control w-50" id="NameSpeciality" asp-for="@Model.speciality.NameSpeciality" />
@@ -33,7 +33,7 @@
                 <div class="card-body">
                     <p>@speciality.NameSpeciality</p>
                     <div class="input-group mb-3">
-                        <form method="post" asp-page-handler="Update" asp-route-id="@speciality.Id">
+                        <form method="post" asp-page="/Update" asp-route-id="@speciality.Id">
                             <div class="form-group row" style="flex-wrap: nowrap; margin-left: 1px">
                                 <input type="text" class="form-control mr-2" asp-for="@Model.name" />
                                 <div class="input-group-append">
@@ -43,7 +43,7 @@
                         </form>
                     </div>
                     <div>
-                        <form asp-page-handler="Delete" asp-route-id="@speciality.Id" method="post">
+                        <form asp-page="/Delete" asp-route-id="@speciality.Id" method="post">
                             <button type="submit" class="btn btn-danger">Удалить</button>
                         </form>
                     </div>

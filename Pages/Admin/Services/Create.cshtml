@@ -1,4 +1,5 @@
-﻿@model List<MedicalService>
+﻿@page
+@model Admin.Services.CreateModel
 
 <ul class="nav nav-tabs" id="tab-example" role="tablist">
     <li class="nav-item">
@@ -27,7 +28,7 @@
             </p>
             <p>
                 <label name="FkSpeciality">Категория</label>
-                <select name="FkSpeciality" asp-items="ViewBag.Specialities"></select>
+                <select name="FkSpeciality" asp-items="@Model.specialities"></select>
             </p>
             <p>
                 <label name="Price">Цена</label>
@@ -38,7 +39,7 @@
                 <textarea class="form-control" name="Description"></textarea>
             </p>
             <p>
-                <input class="btn btn-primary" type="submit" value="Создать"/>
+                <input class="btn btn-primary" type="submit" value="Создать" />
             </p>
         </div>
     </form>

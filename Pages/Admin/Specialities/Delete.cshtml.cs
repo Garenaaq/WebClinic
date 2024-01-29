@@ -6,27 +6,16 @@ using WebClinic.Models;
 
 namespace WebClinic.Pages.Admin.Specialities
 {
-    public class InactiveModel : PageModel
+    public class DeleteModel : PageModel
     {
+
         readonly ClinicContext _context;
         readonly IHttpContextAccessor _contextAccessor;
 
-        public InactiveModel(ClinicContext context, IHttpContextAccessor contextAccessor)
+        public DeleteModel(ClinicContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _contextAccessor = contextAccessor;
-        }
-        public List<Speciality> specialities { get; set; } = default!;
-
-        public IActionResult OnGet()
-        {
-
-            specialities = _context.Specialities
-                .Where(specality => specality.DeleteFlag == 1)
-                .AsNoTracking()
-                .ToList();
-
-            return Page();
         }
 
         public IActionResult OnPost(int? id)
@@ -37,14 +26,14 @@ namespace WebClinic.Pages.Admin.Specialities
             }
 
             IQueryable<Speciality> specialityQuery = _context.Specialities
-                                                                .Where(s => s.Id == id);
+                                                        .Where(x => x.Id == id);
 
             if (!specialityQuery.Any())
             {
                 return Page();
             }
 
-            specialityQuery.ExecuteUpdate(speciality => speciality.SetProperty(s => s.DeleteFlag, 0));
+            specialityQuery.ExecuteUpdate(speciality => speciality.SetProperty(s => s.DeleteFlag, 1));
 
             return Page();
         }
