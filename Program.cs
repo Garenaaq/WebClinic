@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebClinic.Data;
+using WebClinic.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration["Database"] ?? throw new Exception("Database doesn't exist");
 
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(builder.Configuration["Database"]));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+builder.Services.AddIdentity<User, IdentityRole<int>>()
+    .AddEntityFrameworkStores<ClinicContext>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

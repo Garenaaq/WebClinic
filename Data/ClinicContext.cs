@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using WebClinic.Models;
 
 namespace WebClinic.Data;
 
-public partial class ClinicContext : DbContext
+public partial class ClinicContext : IdentityDbContext<User, IdentityRole<int>, int>
 {
-    public ClinicContext()
-    {
-    }
-
-    public ClinicContext(DbContextOptions<ClinicContext> options)
+    public ClinicContext(DbContextOptions options)
         : base(options)
     {
     }
@@ -30,17 +29,17 @@ public partial class ClinicContext : DbContext
 
     public virtual DbSet<Speciality> Specialities { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
-
     public virtual DbSet<Rollback> Rollback { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<DiseaseHistory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("disease_history_pkey");
 
-            entity.ToTable("disease_history");
+            entity.ToTable("DiseaseHistory");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DateRecord)
@@ -65,7 +64,7 @@ public partial class ClinicContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("employes_pkey");
 
-            entity.ToTable("employes");
+            entity.ToTable("Employes");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Birthdate).HasColumnName("birthdate");
@@ -93,7 +92,7 @@ public partial class ClinicContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("medical_services_pkey");
 
-            entity.ToTable("medical_services");
+            entity.ToTable("MedicalServices");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
@@ -113,7 +112,7 @@ public partial class ClinicContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("patient_pkey");
 
-            entity.ToTable("patient");
+            entity.ToTable("Patient");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Birthdate).HasColumnName("birthdate");
@@ -133,7 +132,7 @@ public partial class ClinicContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("phonebook_pkey");
 
-            entity.ToTable("phonebook");
+            entity.ToTable("Phonebook");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.FkUsers).HasColumnName("fk_users");
@@ -149,7 +148,7 @@ public partial class ClinicContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("records_pkey");
 
-            entity.ToTable("records");
+            entity.ToTable("Records");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DateRecords)
@@ -173,41 +172,11 @@ public partial class ClinicContext : DbContext
                 .HasConstraintName("records_fk_service_fkey");
         });
 
-        modelBuilder.Entity<Speciality>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("specialities_pkey");
-
-            entity.ToTable("specialities");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.NameSpeciality).HasColumnName("name_speciality");
-            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
-            .HasDefaultValue(0);
-        });
-
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("users_pkey");
-
-            entity.ToTable("users");
-
-            entity.HasIndex(e => e.Login, "login_unique").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Login)
-                .HasMaxLength(64)
-                .HasColumnName("login");
-            entity.Property(e => e.Pass)
-                .HasMaxLength(64)
-                .HasColumnName("pass");
-            entity.Property(e => e.Role).HasColumnName("role");
-        });
-
         modelBuilder.Entity<Rollback>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("id");
 
-            entity.ToTable("rollback_table");
+            entity.ToTable("RollbackTable");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Time).HasColumnName("time");
@@ -216,8 +185,34 @@ public partial class ClinicContext : DbContext
             entity.Property(e => e.TabName).HasColumnName("tab_name");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+
+        modelBuilder.Entity<Speciality>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("specialities_pkey");
+
+            entity.ToTable("Specialities");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.NameSpeciality).HasColumnName("name_speciality");
+            entity.Property(e => e.DeleteFlag).HasColumnName("delete_flag")
+            .HasDefaultValue(0);
+        });
+
+        modelBuilder.Entity<User>().ToTable("Users");
+
+        modelBuilder.Entity<IdentityRole<int>>().ToTable("Roles");
+
+        modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
+
+        modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
+
+        modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
+
+        modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
+
+        modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
+
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
 }

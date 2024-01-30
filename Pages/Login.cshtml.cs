@@ -23,9 +23,9 @@ namespace WebClinic.Pages
 
         public IActionResult OnPost()
         {
-            IQueryable<User> userQuery = _context.Users.Where(u => u.Login == user.Login && u.Pass == user.Pass);
+            //IQueryable<User> userQuery = _context.Users.Where(u => u.UserName == user.UserName && u.PasswordHash == user.PasswordHash);
            
-            if (!userQuery.Any()) return Page();
+            //if (!userQuery.Any()) return Page();
 
             return RedirectToPage("/Index");
         }
