@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
-using WebClinic.Models;
+using WebClinic.Models.DomainModels;
 
 namespace WebClinic.Data;
 
@@ -77,10 +77,7 @@ public partial class ClinicContext : IdentityDbContext<User, IdentityRole<int>, 
             entity.Property(e => e.Patronymic).HasColumnName("patronymic");
             entity.Property(e => e.Surname).HasColumnName("surname");
 
-            entity.HasOne(d => d.FkSpecialityNavigation).WithMany(p => p.Employes)
-                .HasForeignKey(d => d.FkSpeciality)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("employes_fk_speciality_fkey");
+            entity.HasMany(d => d.Specialities).WithMany(p => p.Employes);
 
             entity.HasOne(d => d.FkUsersNavigation).WithMany(p => p.Employes)
                 .HasForeignKey(d => d.FkUsers)

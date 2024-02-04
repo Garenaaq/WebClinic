@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebClinic.Data;
-using WebClinic.Models;
+using WebClinic.Models.DomainModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,18 +10,29 @@ string connectionString = builder.Configuration["Database"] ?? throw new Excepti
 
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ClinicContext>(options => options.UseNpgsql(builder.Configuration["Database"]));
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddIdentity<User, IdentityRole<int>>()
     .AddEntityFrameworkStores<ClinicContext>();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
+
+builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(120);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    options.LoginPath = "/Account/Login";
 });
 
 var app = builder.Build();
+
+using (var init = app.Services.CreateScope())
+{
+    try
+    {
+        UserManager<User>? userManager = init.ServiceProvider.GetService<UserManager<User>>();
+        RoleManager<IdentityRole<int>>? roleManager = init.ServiceProvider.GetService<RoleManager<IdentityRole<int>>>();
+        await Initializer.InitializeAsync(userManager, roleManager, builder.Configuration);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex);
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -36,16 +47,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSession();
-
 app.MapRazorPages();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();

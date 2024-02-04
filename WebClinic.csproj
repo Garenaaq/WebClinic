@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Admin\Doctors\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

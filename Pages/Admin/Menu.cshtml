@@ -1,0 +1,43 @@
+﻿@page
+@model WebClinic.Pages.Admin.MenuModel
+@{
+}
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>Персонал</h2>
+            <p>Управление учётными записями врачей</p>
+            <a asp-page="/Doctors/Active" class="btn btn-primary">
+                Перейти
+            </a>
+        </div>
+    </div>
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>Специальности</h2>
+            <p>Управление специальностями врачей</p>
+            <a asp-page="/Specialities/Active" class="btn btn-primary">
+                Перейти
+            </a>
+        </div>
+    </div>
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>Услуги</h2>
+            <p>Управление предоставляемыми услугами</p>
+            <a asp-page="/Services/Active" class="btn btn-primary">
+                Перейти
+            </a>
+        </div>
+    </div>
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>База данных</h2>
+            <p>Управление базой данных</p>
+            <a asp-page="/Rollback/Index" class="btn btn-primary">
+                Перейти
+            </a>
+        </div>
+    </div>
+</div>

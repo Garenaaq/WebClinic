@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebClinic.Data;
-using WebClinic.Models;
+using WebClinic.Models.DomainModels;
 
 namespace WebClinic.Pages.Services
 {

@@ -1,0 +1,60 @@
+﻿@page
+@model Account.Doctor.IndexModel
+
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+    <a href="/ru/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <svg class="bi pe-none me-2" width="40" height="32">
+            <use xlink:href="#bootstrap"></use>
+        </svg> <span class="fs-4">Доктор</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a asp-page="Doctor/Index" class="nav-link active" aria-current="page">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#home"></use>
+                </svg>Профиль
+            </a>
+        </li>
+        <li>
+            <a asp-page="Doctor/FreeRecords" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                </svg>Список больных
+            </a>
+        </li>
+        <li>
+            <a asp-page="Doctor/ActiveRecords" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                </svg>Предстоящие визиты
+            </a>
+        </li>
+        <li>
+            <a asp-page="Doctor/History" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"></use>
+                </svg>Архив
+            </a>
+        </li>
+        <li>
+            <a asp-action="Doctor/Settings" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16">
+                    <use xlink:href="#table"></use>
+                </svg>Настройки
+            </a>
+        </li>
+    </ul>
+    <hr>
+</div>
+
+<p>@Model.ViewModel.Surname @Model.ViewModel.Name @Model.ViewModel.Patronymic</p>
+<p>Дата рождения: @Model.ViewModel.BirthDate.ToLongDateString() (@(DateTime.Today.Year - Model.ViewModel.BirthDate.Year) лет)</p>
+<p>@Model.ViewModel.Gender</p>
+<p>@Model.ViewModel.Phone</p>
+<p>Специальности</p>
+@foreach (var speciality in Model.ViewModel.Specialities)
+{
+    <p>@speciality.NameSpeciality</p>
+}
+

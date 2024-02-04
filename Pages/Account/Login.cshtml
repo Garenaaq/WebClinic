@@ -1,0 +1,38 @@
+﻿@page
+@model Account.LoginModel
+
+@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<div class="container align-middle">
+    <div class="w-50 col-md-8 mx-auto" style="text-align: center">
+        <form method="post">
+            <div class="form-group m-3">
+                <input class="form-control item" type="text" placeholder="Логин" asp-for="UserLoginModel.Login">
+                <div>
+                    <span class="text-danger" asp-validation-for="UserLoginModel.Login"></span>
+                </div>
+            </div>
+            <div class="form-group m-3">
+                <input class="form-control item" type="password" placeholder="Пароль" asp-for="UserLoginModel.Password">
+                <div>
+                    <span class="text-danger" asp-validation-for="UserLoginModel.Password"></span>
+                </div>
+            </div>
+            <div class="form-group m-3">
+                <input type="checkbox" id="remember" asp-for="UserLoginModel.RememberMe">
+                Запомнить меня
+            </div>
+            <div class="form-group m-3">
+                <div>
+                    <span class="text-danger" asp-validation-for="UserLoginModel.ErrorMessage"></span>
+                </div>
+            </div>
+            <div class="form-group m-3">
+                <button class="btn btn-success btn-block create-account" type="submit">Вход в аккаунт</button>
+                <a class="btn btn-outline-primary btn-block create-account" asp-page="Registration">Регистрация</a>
+            </div>
+        </form>
+    </div>
+</div>
