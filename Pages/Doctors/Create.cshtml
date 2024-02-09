@@ -1,0 +1,103 @@
+﻿@page
+@model WebClinic.Pages.Doctors.CreateModel
+@{
+}
+
+<div>
+    @await Html.PartialAsync("~/Pages/Partials/_DoctorMenuNavbar.cshtml")
+    <form method="post" id="myForm" asp-action="Index">
+        <div class="border p-3">
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Фамилия
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="@Model.ViewModel.Surname" />
+                    <span class="text-danger" asp-validation-for="@Model.ViewModel.Surname"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Имя
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="@Model.ViewModel.Name" />
+                    <span class="text-danger" asp-validation-for="@Model.ViewModel.Name"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Отчество
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="@Model.ViewModel.Patronymic" />
+                    <span class="text-danger" asp-validation-for="@Model.ViewModel.Patronymic"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Возраст
+                </div>
+                <div class="col-8">
+                    <input class="form-control" type="date" asp-for="@Model.ViewModel.BirthDate" />
+                    <span class="text-danger" asp-validation-for="@Model.ViewModel.BirthDate"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Пол
+                </div>
+                <div class="col-8">
+                    <select asp-items="@Model.Genders" class="form-control" asp-for="@Model.ViewModel.Gender">
+                        <option disabled selected>Пол</option>
+                    </select>
+                    <span asp-validation-for="@Model.ViewModel.Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Специальность
+                </div>
+                <div class="col-8">
+                    <select multiple asp-items="@Model.Specialities" class="form-control" asp-for="@Model.ViewModel.Specialities">
+                        <option disabled selected>Специальность</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Номер телефона
+                </div>
+                <div class="col-8">
+                    <input required class="form-control" type="tel" asp-for="@Model.ViewModel.Phonenumber" />
+                </div>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Логин
+                </div>
+                    <div class="col-8">
+                        <input class="form-control" name="Login" placeholder="@Model.ViewModel.Login" required />
+                    </div>
+
+                <span asp-validation-for="@Model.ViewModel.Login" class="text-danger"></span>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-4">
+                    Пароль
+                </div>
+                <div class="col-8">
+                    <input class="form-control" name="Pass" value="@Model.ViewModel.Password" required />
+                </div>
+                <span asp-validation-for="@Model.ViewModel.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group row m-3">
+                <div class="col-8 offset-4 row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-success w-75" value="Добавить" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

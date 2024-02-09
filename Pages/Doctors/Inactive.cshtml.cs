@@ -7,12 +7,12 @@ using WebClinic.Models.DomainModels;
 
 namespace WebClinic.Pages.Doctors
 {
-    [Authorize(Roles ="admin")]
-    public class ActiveModel : PageModel
+    [Authorize(Roles = "admin")]
+    public class InactiveModel : PageModel
     {
         readonly ClinicContext _context;
 
-        public ActiveModel(ClinicContext context)
+        public InactiveModel(ClinicContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace WebClinic.Pages.Doctors
 
         public IActionResult OnGet()
         {
-            Doctors = _context.Employes.Where(x => x.DeleteFlag == 0)
+            Doctors = _context.Employes.Where(x => x.DeleteFlag == 1)
                 .Include(x => x.Specialities)
                 .ToList();
 
