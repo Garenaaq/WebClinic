@@ -33,7 +33,7 @@
         <p>@ViewBag.user.Surname @ViewBag.user.Name @ViewBag.user.Patronymic</p>
         <p>Дата рождения: @ViewBag.user.Birthdate.ToLongDateString() (@(DateTime.Today.Year - ViewBag.user.Birthdate.Year) лет)</p>
         <p>Пол: @ViewBag.user.Gender</p>
-        @foreach (var phones in ViewBag.phones)
+        @foreach (Phonebook phones in ViewBag.phones)
         {
            <p>@phones.Phone</p>
         }
@@ -54,7 +54,7 @@
             <p>Номера телефонов:</p>
             foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks.ToList())
             {
-                <p>@phone</p>
+                <p>@phone.Phone</p>
             }
             @if (record.DateRecord is null)
             {

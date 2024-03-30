@@ -22,6 +22,7 @@ public partial class Patient
     public string Patronymic { get; set; }
     //[Required(ErrorMessage = "Вы не указали возраст")]
     //[Range(14, int.MaxValue, ErrorMessage = "Регистрироваться можно от 14 лет")]
+    [DataType(DataType.DateTime)]
     public DateTime? Birthdate { get; set; }
     [Required(ErrorMessage = "Вы не указали пол")]
     public string Gender { get; set; }
