@@ -62,7 +62,7 @@
             {
                 foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks)
                 {
-                    <p>@phone</p>
+                    <p>@phone.Phone</p>
                 }
             }
             @if (record.DateRecords is null)

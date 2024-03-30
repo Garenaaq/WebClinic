@@ -61,7 +61,7 @@
             <p>Номера телефонов:</p>
             foreach (var phone in record.FkPatientNavigation.FkUsersNavigation.Phonebooks.ToList())
             {
-                <p>7 @phone</p>
+                <p>@phone.Phone</p>
             }
             @if (record.DateRecord is null)
             {

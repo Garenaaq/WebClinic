@@ -22,6 +22,13 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    await Initializer.Initialize(services.GetRequiredService<ClinicContext>());
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -42,7 +49,5 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();

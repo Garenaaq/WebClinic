@@ -13,6 +13,7 @@ public partial class ClinicContext : DbContext
     public ClinicContext(DbContextOptions<ClinicContext> options)
         : base(options)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     public virtual DbSet<DiseaseHistory> DiseaseHistories { get; set; }

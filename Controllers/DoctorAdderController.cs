@@ -167,8 +167,8 @@ namespace WebClinic.Controllers
                 return RedirectToAction("Index", new { objUser = objUser});
             }
 
-            var objUserDb = _db.Users.First(u => u.Login == ComputeHash(Login));
-            var objSpecialityDB = _db.Specialities.First(u => u.NameSpeciality == speciality);
+            var objUserDb = _db.Users.FirstOrDefault(u => u.Login == ComputeHash(Login));
+            var objSpecialityDB = _db.Specialities.FirstOrDefault(u => u.NameSpeciality == speciality);
 
 
             objPatient.FkUsersNavigation = objUserDb;

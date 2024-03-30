@@ -115,7 +115,7 @@ namespace WebClinic.Controllers
             using (MD5 md5Hash = MD5.Create())
             {
                 byte[] bytes = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
- 
+
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
