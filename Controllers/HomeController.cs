@@ -1,32 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using WebClinic.Models;
 
 namespace WebClinic.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        ClinicContext _context;
+        private readonly IHttpContextAccessor _contextSession;
+        public HomeController(ClinicContext clinicContext, IHttpContextAccessor context)
         {
-            _logger = logger;
+            _context = clinicContext;
+            this._contextSession = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            ViewBag.idUser = _contextSession.HttpContext?.Session.GetInt32("idUser");
+            var specialities = _context.Specialities.ToList();
+            return View(specialities);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Map()
         {
-            return View();
-        }
+            ViewBag.idUser = _contextSession.HttpContext?.Session.GetInt32("idUser");
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

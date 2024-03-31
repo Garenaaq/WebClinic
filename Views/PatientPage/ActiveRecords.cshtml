@@ -1,0 +1,88 @@
+﻿@model List<Record>;
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
+                <a href="/ru/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="32">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg> <span class="fs-4">Пациент</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a asp-action="Index" class="nav-link link-dark" aria-current="page">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#home"></use>
+                            </svg>Медицинская карта
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="ActiveRecords" class="nav-link active">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>Заказы
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="Settings" class="nav-link link-dark">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#table"></use>
+                            </svg>Настройки
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    @if (Model is null || !Model.Any())
+                    {
+                        <p>Записей нет</p>
+                    }
+                    else
+                    {
+                        @foreach (var record in Model)
+                        {
+                            <div class="mb-4">
+                                @if (record.FkEmployee is null)
+                                {
+                                    <p class="card-text">Ваш заказ ещё не обработан</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">@record.FkEmployeeNavigation.Surname @record.FkEmployeeNavigation.Name @record.FkEmployeeNavigation.Patronymic</p>
+                                }
+                                <p class="card-text">@record.FkServiceNavigation.NameService</p>
+                                <p class="card-text">Стоимость: @record.FkServiceNavigation.Price</p>
+                                <p class="card-text">Номера телефонов врача:</p>
+                                @if (record.FkEmployee is null)
+                                {
+                                    <p class="card-text">Нет телефонов</p>
+                                }
+                                else
+                                {
+                                    @foreach (var phone in record.FkEmployeeNavigation.FkUsersNavigation.Phonebooks)
+                                    {
+                                        <p class="card-text">@phone.Phone</p>
+                                    }
+                                }
+                                @if (record.DateRecords is null)
+                                {
+                                    <p class="card-text">Время не назначено</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">Назначено на @record.DateRecords.Value</p>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

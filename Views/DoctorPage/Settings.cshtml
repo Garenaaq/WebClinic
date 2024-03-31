@@ -1,0 +1,80 @@
+﻿@model WebClinic.Models.Employe
+
+@{
+    ViewData["Title"] = "Настройки";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
+                <a href="/ru/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="32">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg> <span class="fs-4">Доктор</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a asp-action="Index" class="nav-link link-dark" aria-current="page">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#home"></use>
+                            </svg>Профиль
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="FreeRecords" class="nav-link link-dark">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>Список больных
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="ActiveRecords" class="nav-link link-dark">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>Предстоящие визиты
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="History" class="nav-link link-dark">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>Архив
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="Settings" class="nav-link active">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#table"></use>
+                            </svg>Настройки
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    @foreach (var phone in Model.FkUsersNavigation.Phonebooks.ToList())
+                    {
+                        <form method="post" asp-action="DeletePhone" asp-route-phoneid=@phone.Id asp-route-id=@Model.Id>
+                            <div class="mb-3">
+                                <p>@phone.Phone</p>
+                                <button type="submit" class="btn btn-danger">Открепить</button>
+                            </div>
+                        </form>
+                    }
+                    <form method="post" asp-action="AddPhone" asp-route-id=@Model.Id>
+                        <div class="mb-3">
+                            <label for="phoneInput" class="form-label">Добавить телефон</label>
+                            <input name="phone" type="tel" class="form-control" id="phoneInput">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
