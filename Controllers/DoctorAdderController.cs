@@ -49,20 +49,25 @@ namespace WebClinic.Controllers
                 Value = speciality.NameSpeciality
             });
 
-            var doctor = _db.Employes.FirstOrDefault(x=>x.Id == id);
-
+            var doctor = _db.Employes.Include(x=>x.FkUsersNavigation).AsNoTracking().FirstOrDefault(x=>x.Id == id);
             return View(doctor);
         }
 
         [HttpPost]
         public IActionResult EditDoctor(Employe doctor, int flag, string speciality)
         {
-            var objSpecialityDB = _db.Specialities.First(u => u.NameSpeciality == speciality);
+            var fkUser = _db.Employes
+                .AsNoTracking()
+                .FirstOrDefault(x => x.Id == doctor.Id)!.FkUsers;
+            
+
+            var objSpecialityDB = _db.Specialities.FirstOrDefault(u => u.NameSpeciality == speciality);
 
             doctor.FkSpecialityNavigation = objSpecialityDB;
 
-            doctor.DeleteFlag = flag;
+            doctor.FkUsers = fkUser;
 
+            doctor.DeleteFlag = flag;
 
             _db.Employes.Update(doctor);
             _db.SaveChanges();

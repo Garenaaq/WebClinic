@@ -28,7 +28,7 @@ namespace WebClinic.Controllers
             admin.Login = ComputeHash(admin.Login);
             admin.Pass = ComputeHash(admin.Pass);
 
-            var adminUser = _db.Users.FirstOrDefault(user => user.Login == admin.Login && user.Role == "админ");
+            var adminUser = _db.Users.FirstOrDefault(user => user.Login == admin.Login && user.Pass == admin.Pass && user.Role == "админ");
 
             if (adminUser == null)
             {
