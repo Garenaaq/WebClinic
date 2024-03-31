@@ -1,21 +1,33 @@
 ﻿@model Record;
 
 
-<p>Пациент @Model.FkPatientNavigation.Surname @Model.FkPatientNavigation.Name @Model.FkPatientNavigation.Patronymic</p>
-<p>Дата рождения: @Model.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - @Model.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
-<p>@Model.FkPatientNavigation.Gender</p>
-<p>Время визита @Model.DateRecords.Value</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Пациент @Model.FkPatientNavigation.Surname @Model.FkPatientNavigation.Name @Model.FkPatientNavigation.Patronymic</h5>
+                    <p class="card-text">Дата рождения: @Model.FkPatientNavigation.Birthdate.Value.ToLongDateString() (@(DateTime.Today.Year - @Model.FkPatientNavigation.Birthdate.Value.Year) лет)</p>
+                    <p class="card-text">@Model.FkPatientNavigation.Gender</p>
+                    <p class="card-text">Время визита @Model.DateRecords.Value</p>
 
-<form method="post" asp-action="Finish" asp-controller="Record" asp-route-id=@Model.Id>
-
-    <input type="text" name="Diagnosis"/>
-
-    <textarea name="Therapy"></textarea>
-
-    <p>Сохранить в историю</p>
-
-    <input type="checkbox" name="save" value="true"/>
-   
-    <input type="submit" value="Завершить" />
-
-</form>
+                    <form method="post" asp-action="Finish" asp-controller="Record" asp-route-id="@Model.Id">
+                        <div class="form-group">
+                            <label for="diagnosisInput">Диагноз:</label>
+                            <input type="text" name="Diagnosis" class="form-control" id="diagnosisInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="therapyInput">Терапия:</label>
+                            <textarea name="Therapy" class="form-control" id="therapyInput"></textarea>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="save" value="true" class="form-check-input" id="saveCheck">
+                            <label class="form-check-label" for="saveCheck">Сохранить в историю</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Завершить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
